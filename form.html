@@ -678,9 +678,14 @@
 
             message.style.display = "block";
 
-            message.innerHTML =
-                "✅ माहिती Save झाली! पुढील Step मध्ये Certificate तयार करू.";
+          message.innerHTML =
+    "✅ माहिती Save झाली! Certificate तयार होत आहे...";
 
+setTimeout(function() {
+
+    window.location.href = "certificate.html";
+
+}, 500);
         }
     );
 
