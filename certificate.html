@@ -71,25 +71,49 @@ body{
 
 
 /* =========================
-   A4 CERTIFICATE
+   A4 PAGE
 ========================= */
 
 .a4{
+
     width:210mm;
+    height:297mm;
     min-height:297mm;
 
     margin:18px auto;
 
     background:#fff;
 
-    /* PAGE BORDER */
-    border:1px solid #222;
+    border:none;
 
     box-shadow:0 0 7px rgba(0,0,0,.18);
 
     padding:3mm 4mm 5mm;
 
     position:relative;
+}
+
+
+/* =========================
+   PRINTABLE BORDER
+========================= */
+
+.a4::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:5mm;
+    left:5mm;
+    right:5mm;
+    bottom:5mm;
+
+    border:1.2px solid #222;
+
+    pointer-events:none;
+
+    z-index:20;
 }
 
 
@@ -178,12 +202,15 @@ body{
 ========================= */
 
 .info-area{
+
     padding-top:3mm;
 
     display:flex;
+
     justify-content:space-between;
 
     font-size:12px;
+
     line-height:1.4;
 }
 
@@ -201,14 +228,17 @@ body{
 ========================= */
 
 .info-english{
+
     padding-top:2mm;
 
     display:flex;
+
     justify-content:space-between;
 
     font-family:Arial,sans-serif;
 
     font-size:12px;
+
     line-height:1.4;
 }
 
@@ -218,6 +248,7 @@ body{
 ========================= */
 
 .officer{
+
     margin-top:8mm;
 
     font-size:12px;
@@ -230,7 +261,9 @@ body{
 }
 
 .officer-english{
+
     font-family:Arial,sans-serif;
+
     text-align:left;
 }
 
@@ -240,6 +273,7 @@ body{
 ========================= */
 
 .content{
+
     margin-top:4mm;
 
     font-size:13px;
@@ -263,6 +297,7 @@ body{
 ========================= */
 
 .english-content{
+
     font-family:Arial,sans-serif;
 
     font-size:12px;
@@ -278,6 +313,7 @@ body{
 ========================= */
 
 .verification-marathi{
+
     margin-top:7mm !important;
 
     font-size:12.5px;
@@ -286,6 +322,7 @@ body{
 }
 
 .verification-english{
+
     font-family:Arial,sans-serif;
 
     font-size:12px;
@@ -301,6 +338,7 @@ body{
 ========================= */
 
 .signature-area{
+
     margin-top:12mm;
 }
 
@@ -310,11 +348,13 @@ body{
 ========================= */
 
 .signature-bar{
+
     height:8mm;
 
     background:#c6c6c6;
 
     border-top:1px solid #999;
+
     border-bottom:1px solid #999;
 
     display:flex;
@@ -334,6 +374,7 @@ body{
 ========================= */
 
 .signature-bottom{
+
     display:flex;
 
     justify-content:space-between;
@@ -349,6 +390,7 @@ body{
 ========================= */
 
 .place{
+
     font-size:12px;
 
     line-height:2;
@@ -362,6 +404,7 @@ body{
 ========================= */
 
 .signature{
+
     min-width:75mm;
 
     font-size:12px;
@@ -373,13 +416,14 @@ body{
 
 
 /* ==================================================
-   PRINT SETTINGS
+   PRINT
 ================================================== */
 
 @media print{
 
     html,
     body{
+
         margin:0 !important;
         padding:0 !important;
 
@@ -388,6 +432,7 @@ body{
 
 
     .topbar{
+
         display:none !important;
     }
 
@@ -406,14 +451,36 @@ body{
 
         background:#fff !important;
 
-        /* PRINT BORDER */
-        border:1px solid #222 !important;
+        border:none !important;
 
         box-shadow:none !important;
+
+        position:relative;
 
         page-break-after:always;
 
         page-break-inside:avoid;
+    }
+
+
+    /* PRINT BORDER */
+
+    .a4::before{
+
+        content:"";
+
+        position:absolute;
+
+        top:5mm;
+        left:5mm;
+        right:5mm;
+        bottom:5mm;
+
+        border:1.2px solid #222;
+
+        pointer-events:none;
+
+        z-index:999;
     }
 
 
@@ -756,7 +823,7 @@ body{
         <p class="verification-english">
 
             Certificate is issued on request of the applicant,
-            after his resident verification &amp;local level enquiry.
+            after his resident verification &amp; local level enquiry.
 
         </p>
 
@@ -789,7 +856,7 @@ body{
 
                 <br>
 
-                Place :Adgaon
+                Place : Adgaon
 
             </div>
 
@@ -810,6 +877,7 @@ body{
                 Sarpanch/Gramsevak/Village Development Officer
 
             </div>
+
 
         </div>
 
@@ -978,7 +1046,7 @@ document.getElementById(
 
 /* ==================================================
    TALUKA
-================================================== */
+========================================================= */
 
 document.getElementById(
     "taluka"
@@ -995,7 +1063,7 @@ document.getElementById(
 
 /* ==================================================
    DISTRICT
-================================================== */
+========================================================= */
 
 document.getElementById(
     "district"
@@ -1012,7 +1080,7 @@ document.getElementById(
 
 /* ==================================================
    PINCODE
-================================================== */
+========================================================= */
 
 document.getElementById(
     "pincode"
@@ -1029,7 +1097,7 @@ document.getElementById(
 
 /* ==================================================
    RESIDENT TYPE
-================================================== */
+========================================================= */
 
 document.getElementById(
     "residentType"
@@ -1040,7 +1108,7 @@ document.getElementById(
 
 /* ==================================================
    DASHBOARD
-================================================== */
+========================================================= */
 
 function goDashboard(){
 
