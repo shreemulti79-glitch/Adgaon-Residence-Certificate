@@ -11,10 +11,6 @@
 
 <style>
 
-/* =========================
-   BASIC
-========================= */
-
 *{
     box-sizing:border-box;
 }
@@ -81,7 +77,7 @@ body{
 
 
 /* =========================
-   A4
+   A4 PAGE
 ========================= */
 
 .a4{
@@ -110,7 +106,9 @@ body{
 }
 
 
-/* LOGO */
+/* =========================
+   GOVERNMENT LOGO
+========================= */
 
 .logo{
     width:30mm;
@@ -121,25 +119,21 @@ body{
     display:flex;
     align-items:center;
     justify-content:center;
-
-    font-size:10px;
-    color:#777;
 }
-
-
-/*
-जर तुमच्याकडे logo.png असेल तर
-खालील img वापरू शकता.
-*/
 
 .logo img{
     width:30mm;
     height:30mm;
+
     object-fit:contain;
+
+    display:block;
 }
 
 
-/* OFFICE NAME */
+/* =========================
+   OFFICE NAME
+========================= */
 
 .office-marathi{
     font-size:16px;
@@ -187,10 +181,11 @@ body{
 
 
 /* =========================
-   CERTIFICATE INFO
+   NUMBER / DATE
 ========================= */
 
 .info-area{
+
     padding:4mm 2mm 0;
 
     font-size:12px;
@@ -208,9 +203,8 @@ body{
 }
 
 
-/* ENGLISH INFO */
-
 .info-english{
+
     padding:3mm 2mm 0;
 
     font-family:Arial,sans-serif;
@@ -218,6 +212,7 @@ body{
     font-size:12px;
 
     display:flex;
+
     justify-content:space-between;
 }
 
@@ -252,7 +247,7 @@ body{
 
 
 /* =========================
-   MAIN CONTENT
+   CONTENT
 ========================= */
 
 .content{
@@ -272,15 +267,14 @@ body{
     margin:0 0 5mm 0;
 }
 
-
-/* NAME / IMPORTANT */
-
 .bold{
     font-weight:bold;
 }
 
 
-/* ENGLISH PARAGRAPH */
+/* =========================
+   ENGLISH
+========================= */
 
 .english-content{
 
@@ -295,7 +289,7 @@ body{
 
 
 /* =========================
-   LAST PARAGRAPHS
+   VERIFICATION
 ========================= */
 
 .verification-marathi{
@@ -365,8 +359,10 @@ body{
 
     html,
     body{
+
         margin:0;
         padding:0;
+
         background:white;
     }
 
@@ -390,7 +386,9 @@ body{
     }
 
     @page{
+
         size:A4;
+
         margin:0;
     }
 
@@ -398,14 +396,17 @@ body{
 
 
 /* =========================
-   SMALL SCREEN
+   MOBILE
 ========================= */
 
 @media screen and (max-width:800px){
 
     .a4{
+
         transform-origin:top left;
+
         transform:scale(.75);
+
         margin-bottom:-70mm;
     }
 
@@ -425,20 +426,27 @@ body{
 
 <div class="topbar">
 
-    <h2>रहिवासी दाखला</h2>
+    <h2>
+        रहिवासी दाखला
+    </h2>
 
     <div class="top-buttons">
 
         <button
             class="dashboard"
             onclick="goDashboard()">
+
             ← Dashboard
+
         </button>
+
 
         <button
             class="print"
             onclick="window.print()">
+
             🖨️ Print
+
         </button>
 
     </div>
@@ -454,23 +462,20 @@ body{
 <div class="a4">
 
 
-    <!-- HEADER -->
+    <!-- =========================
+         HEADER
+    ========================= -->
 
     <div class="header">
 
 
-        <!-- LOGO -->
+        <!-- GOVERNMENT LOGO -->
 
         <div class="logo">
 
-            <!--
-            जर logo.png उपलब्ध असेल तर:
-
-            <img src="logo.png">
-
-            -->
-
-            🏛️
+            <img
+                src="logo.png"
+                alt="Government Logo">
 
         </div>
 
@@ -491,7 +496,6 @@ body{
             Tal.Bhokordan Dist.Jalna
 
         </div>
-
 
     </div>
 
@@ -589,7 +593,7 @@ body{
 
 
     <!-- =========================
-         CONTENT
+         MAIN CONTENT
     ========================= -->
 
     <div class="content">
@@ -601,31 +605,52 @@ body{
 
             यांच्याकडून दाखला देण्यात येतो कि
 
-            <span class="bold" id="marathiName"></span>
+            <span
+                class="bold"
+                id="marathiName">
+            </span>
 
             यांचे आधार क्र.
 
-            <span class="bold" id="aadhaar"></span>
+            <span
+                class="bold"
+                id="aadhaar">
+            </span>
 
             हे ग्रामपंचायत आडगाव हद्दीतील मौजे
 
-            <span class="bold" id="village"></span>
+            <span
+                class="bold"
+                id="village">
+            </span>
 
             ता.
 
-            <span class="bold" id="taluka"></span>
+            <span
+                class="bold"
+                id="taluka">
+            </span>
 
             जि.
 
-            <span class="bold" id="district"></span>
+            <span
+                class="bold"
+                id="district">
+            </span>
 
             महाराष्ट्र
 
-            <span class="bold" id="pincode"></span>
+            <span
+                class="bold"
+                id="pincode">
+            </span>
 
             येथील
 
-            <span class="bold" id="residentType"></span>
+            <span
+                class="bold"
+                id="residentType">
+            </span>
 
             रहिवासी आहेत.
 
@@ -745,6 +770,7 @@ body{
 
 <script>
 
+
 /* =========================
    LOGIN CHECK
 ========================= */
@@ -784,15 +810,21 @@ const data =
 function formatDate(date){
 
     if(!date){
+
         return "";
+
     }
 
     const parts =
         date.split("-");
 
+
     if(parts.length !== 3){
+
         return date;
+
     }
+
 
     return parts[2] + "-" +
            parts[1] + "-" +
@@ -802,7 +834,7 @@ function formatDate(date){
 
 
 /* =========================
-   FILL DATA
+   FILL CERTIFICATE NUMBER
 ========================= */
 
 document.getElementById(
@@ -817,6 +849,10 @@ document.getElementById(
     data.certificateNumber || "";
 
 
+/* =========================
+   DATE
+========================= */
+
 document.getElementById(
     "certificateDate"
 ).textContent =
@@ -828,6 +864,10 @@ document.getElementById(
 ).textContent =
     formatDate(data.certificateDate);
 
+
+/* =========================
+   NAME
+========================= */
 
 document.getElementById(
     "marathiName"
@@ -843,6 +883,10 @@ document.getElementById(
     "";
 
 
+/* =========================
+   AADHAAR
+========================= */
+
 document.getElementById(
     "aadhaar"
 ).textContent =
@@ -854,6 +898,10 @@ document.getElementById(
 ).textContent =
     data.aadhaar || "";
 
+
+/* =========================
+   VILLAGE
+========================= */
 
 document.getElementById(
     "village"
@@ -867,6 +915,10 @@ document.getElementById(
     data.village || "Adgaon";
 
 
+/* =========================
+   TALUKA
+========================= */
+
 document.getElementById(
     "taluka"
 ).textContent =
@@ -878,6 +930,10 @@ document.getElementById(
 ).textContent =
     data.taluka || "Bhokardan";
 
+
+/* =========================
+   DISTRICT
+========================= */
 
 document.getElementById(
     "district"
@@ -891,6 +947,10 @@ document.getElementById(
     data.district || "Jalna";
 
 
+/* =========================
+   PINCODE
+========================= */
+
 document.getElementById(
     "pincode"
 ).textContent =
@@ -903,11 +963,14 @@ document.getElementById(
     data.pincode || "431112";
 
 
+/* =========================
+   RESIDENT TYPE
+========================= */
+
 document.getElementById(
     "residentType"
 ).textContent =
     data.residentType || "कायम";
-
 
 
 /* =========================
