@@ -28,6 +28,7 @@ body{
 body{
     background:#eeeeee;
     color:#111;
+
     font-family:
         "Noto Sans Devanagari",
         "Mangal",
@@ -43,6 +44,7 @@ body{
 .topbar{
     background:#0d47a1;
     color:white;
+
     padding:10px 18px;
 
     display:flex;
@@ -62,10 +64,15 @@ body{
 
 .top-buttons button{
     border:0;
+
     padding:8px 15px;
+
     border-radius:5px;
+
     cursor:pointer;
+
     font-weight:bold;
+
     font-size:14px;
 }
 
@@ -81,18 +88,21 @@ body{
 
 
 /* =========================================
-   A4
+   A4 PAGE
 ========================================= */
 
 .a4{
+
     width:210mm;
+
     min-height:297mm;
 
     margin:18px auto;
 
     background:#fff;
 
-    border:1px solid #222;
+    /* FULL PAGE BORDER */
+    border:2px solid #222;
 
     box-shadow:0 0 8px rgba(0,0,0,.20);
 
@@ -107,49 +117,65 @@ body{
 ========================================= */
 
 .header{
+
     text-align:center;
+
     padding-top:0;
+
 }
 
 
 /* =========================================
-   LOGO
+   GOVERNMENT LOGO
 ========================================= */
 
 .logo{
-    width:24mm;
-    height:24mm;
+
+    width:22mm;
+
+    height:22mm;
 
     margin:0 auto 1mm;
 
     display:flex;
-    align-items:flex-start;
+
+    align-items:center;
+
     justify-content:center;
+
 }
 
 .logo img{
-    width:22mm;
-    height:22mm;
+
+    width:20mm;
+
+    height:20mm;
 
     object-fit:contain;
+
     display:block;
+
 }
 
 
 /* =========================================
-   OFFICE
+   OFFICE NAME
 ========================================= */
 
 .office-marathi{
+
     font-size:14px;
+
     font-weight:normal;
 
     line-height:1.25;
 
     margin:0;
+
 }
 
 .office-english{
+
     font-family:Arial,sans-serif;
 
     font-size:13px;
@@ -157,6 +183,7 @@ body{
     line-height:1.25;
 
     margin:0;
+
 }
 
 
@@ -165,24 +192,31 @@ body{
 ========================================= */
 
 .title-box{
+
     margin-top:3mm;
 
     background:#c6c6c6;
 
     border-top:1px solid #777;
+
     border-bottom:1px solid #777;
 
     text-align:center;
 
     padding:2px 0 3px;
+
 }
 
 .title-marathi{
+
     font-size:15px;
+
     line-height:1.2;
+
 }
 
 .title-english{
+
     font-family:Arial,sans-serif;
 
     font-size:13px;
@@ -190,11 +224,12 @@ body{
     line-height:1.2;
 
     margin-top:0;
+
 }
 
 
 /* =========================================
-   NUMBER / DATE
+   MARATHI NUMBER / DATE
 ========================================= */
 
 .info-area{
@@ -208,14 +243,19 @@ body{
     justify-content:space-between;
 
     align-items:center;
+
 }
 
 .info-left{
+
     text-align:left;
+
 }
 
 .info-right{
+
     text-align:right;
+
 }
 
 
@@ -236,6 +276,7 @@ body{
     justify-content:space-between;
 
     align-items:center;
+
 }
 
 
@@ -252,10 +293,13 @@ body{
     font-size:12px;
 
     line-height:1.5;
+
 }
 
 .officer-marathi{
+
     text-align:left;
+
 }
 
 .officer-english{
@@ -265,11 +309,12 @@ body{
     margin-top:1px;
 
     text-align:left;
+
 }
 
 
 /* =========================================
-   CONTENT
+   MAIN CONTENT
 ========================================= */
 
 .content{
@@ -283,14 +328,19 @@ body{
     line-height:1.85;
 
     text-align:left;
+
 }
 
 .content p{
+
     margin:0 0 5mm 0;
+
 }
 
 .bold{
+
     font-weight:bold;
+
 }
 
 
@@ -307,11 +357,12 @@ body{
     line-height:1.75;
 
     margin-top:1mm;
+
 }
 
 
 /* =========================================
-   VERIFICATION
+   VERIFICATION MARATHI
 ========================================= */
 
 .verification-marathi{
@@ -321,7 +372,13 @@ body{
     font-size:12.5px;
 
     line-height:1.8;
+
 }
+
+
+/* =========================================
+   VERIFICATION ENGLISH
+========================================= */
 
 .verification-english{
 
@@ -332,11 +389,12 @@ body{
     line-height:1.7;
 
     margin-top:4mm;
+
 }
 
 
 /* =========================================
-   SIGNATURE
+   SIGNATURE AREA
 ========================================= */
 
 .signature-area{
@@ -344,6 +402,7 @@ body{
     margin-top:15mm;
 
     padding:0;
+
 }
 
 
@@ -370,6 +429,7 @@ body{
     padding-right:20mm;
 
     font-size:12px;
+
 }
 
 
@@ -386,6 +446,7 @@ body{
     align-items:flex-start;
 
     padding-top:2mm;
+
 }
 
 
@@ -400,6 +461,7 @@ body{
     line-height:2;
 
     text-align:left;
+
 }
 
 
@@ -416,6 +478,7 @@ body{
     text-align:center;
 
     min-width:75mm;
+
 }
 
 
@@ -429,29 +492,37 @@ body{
     body{
 
         margin:0;
+
         padding:0;
 
         background:white;
+
     }
 
     .topbar{
+
         display:none !important;
+
     }
 
     .a4{
 
         width:210mm;
+
         min-height:297mm;
 
         margin:0;
 
-        border:1px solid #222;
+        /* PRINT PAGE BORDER */
+
+        border:2px solid #222;
 
         box-shadow:none;
 
         padding:5mm 7mm 7mm;
 
         page-break-after:always;
+
     }
 
     @page{
@@ -459,7 +530,9 @@ body{
         size:A4;
 
         margin:0;
+
     }
+
 }
 
 
@@ -470,7 +543,9 @@ body{
 @media screen and (max-width:800px){
 
     body{
+
         overflow-x:hidden;
+
     }
 
     .a4{
@@ -484,7 +559,9 @@ body{
         margin-top:10px;
 
         margin-bottom:-70mm;
+
     }
+
 }
 
 </style>
@@ -505,6 +582,7 @@ body{
         रहिवासी दाखला
     </h2>
 
+
     <div class="top-buttons">
 
         <button
@@ -514,6 +592,7 @@ body{
             ← Dashboard
 
         </button>
+
 
         <button
             class="print"
@@ -536,12 +615,14 @@ body{
 <div class="a4">
 
 
-    <!-- HEADER -->
+    <!-- =====================================
+         HEADER
+    ====================================== -->
 
     <div class="header">
 
 
-        <!-- LOGO -->
+        <!-- GOVERNMENT LOGO -->
 
         <div class="logo">
 
@@ -573,7 +654,9 @@ body{
 
 
 
-    <!-- TITLE -->
+    <!-- =====================================
+         TITLE
+    ====================================== -->
 
     <div class="title-box">
 
@@ -582,6 +665,7 @@ body{
             रहिवासी दाखला
 
         </div>
+
 
         <div class="title-english">
 
@@ -593,20 +677,25 @@ body{
 
 
 
-    <!-- NUMBER / DATE -->
+    <!-- =====================================
+         NUMBER / DATE
+    ====================================== -->
 
     <div class="info-area">
 
         <div class="info-left">
 
             दाखला क्रमांक :
+
             <span id="certificateNumber"></span>
 
         </div>
 
+
         <div class="info-right">
 
             दिनांक :-
+
             <span id="certificateDate"></span>
 
         </div>
@@ -615,20 +704,25 @@ body{
 
 
 
-    <!-- ENGLISH NUMBER / DATE -->
+    <!-- =====================================
+         ENGLISH NUMBER / DATE
+    ====================================== -->
 
     <div class="info-english">
 
         <div>
 
             Certificate Number :
+
             <span id="certificateNumberEnglish"></span>
 
         </div>
 
+
         <div>
 
             Date :-
+
             <span id="certificateDateEnglish"></span>
 
         </div>
@@ -637,7 +731,9 @@ body{
 
 
 
-    <!-- OFFICER -->
+    <!-- =====================================
+         OFFICER
+    ====================================== -->
 
     <div class="officer">
 
@@ -660,7 +756,9 @@ body{
 
 
 
-    <!-- CONTENT -->
+    <!-- =====================================
+         CONTENT
+    ====================================== -->
 
     <div class="content">
 
@@ -760,7 +858,9 @@ body{
 
 
 
-        <!-- VERIFICATION MARATHI -->
+        <!-- =================================
+             VERIFICATION MARATHI
+        ================================== -->
 
         <p class="verification-marathi">
 
@@ -772,7 +872,9 @@ body{
 
 
 
-        <!-- VERIFICATION ENGLISH -->
+        <!-- =================================
+             VERIFICATION ENGLISH
+        ================================== -->
 
         <p class="verification-english">
 
@@ -786,10 +888,14 @@ body{
 
 
 
-    <!-- SIGNATURE -->
+    <!-- =====================================
+         SIGNATURE
+    ====================================== -->
 
     <div class="signature-area">
 
+
+        <!-- SIGNATURE BAR -->
 
         <div class="signature-bar">
 
@@ -797,6 +903,9 @@ body{
 
         </div>
 
+
+
+        <!-- SIGNATURE BOTTOM -->
 
         <div class="signature-bottom">
 
@@ -812,6 +921,7 @@ body{
                 Place : Adgaon
 
             </div>
+
 
 
             <!-- SIGNATURE -->
@@ -851,7 +961,7 @@ if(
     sessionStorage.getItem("loggedIn") !== "true"
 ){
 
-    window.location.href="index.html";
+    window.location.href = "index.html";
 
 }
 
@@ -868,7 +978,7 @@ if(!saved){
 
     alert("Certificate ची माहिती उपलब्ध नाही.");
 
-    window.location.href="form.html";
+    window.location.href = "form.html";
 
 }
 
@@ -889,6 +999,7 @@ function formatDate(date){
         return "";
 
     }
+
 
     const parts =
         date.split("-");
