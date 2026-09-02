@@ -7,9 +7,6 @@
 
     <title>नवीन रहिवासी दाखला</title>
 
-    <!-- SUPABASE -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <style>
 
         * {
@@ -150,6 +147,11 @@
 
         .save:hover {
             background: #0d47a1;
+        }
+
+        .save:disabled {
+            background: #90caf9;
+            cursor: not-allowed;
         }
 
         .reset {
@@ -523,28 +525,6 @@ if (sessionStorage.getItem("loggedIn") !== "true") {
 
 
 /* =====================================================
-   SUPABASE SETTINGS
-===================================================== */
-
-const SUPABASE_URL =
-    "https://cvbomsvcfvjsijicoyet.supabase.co";
-
-const SUPABASE_KEY =
-    "sb_publishable_z9HtEI40c0G6iuecEBAiRA_B-VvG6J3";
-
-
-/* =====================================================
-   SUPABASE CONNECTION
-===================================================== */
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
-
-
-/* =====================================================
    TODAY DATE
 ===================================================== */
 
@@ -620,13 +600,13 @@ document.getElementById("pincode")
 
 
 /* =====================================================
-   SUBMIT
+   SAVE FORM
 ===================================================== */
 
 document.getElementById("certificateForm")
 .addEventListener(
     "submit",
-    async function(e) {
+    function(e) {
 
         e.preventDefault();
 
@@ -747,47 +727,21 @@ document.getElementById("certificateForm")
 
 
         /* =================================================
-           SHOW LOADING
+           CREATE CERTIFICATE OBJECT
         ================================================= */
 
-        const message =
-            document.getElementById("message");
+        const certificate = {
 
-
-        const saveButton =
-            document.getElementById("saveButton");
-
-
-        message.className = "loading";
-
-        message.style.display = "block";
-
-        message.innerHTML =
-            "⏳ माहिती Save होत आहे...";
-
-
-        saveButton.disabled = true;
-
-        saveButton.innerText =
-            "Saving...";
-
-
-        /* =================================================
-           DATA
-        ================================================= */
-
-        const data = {
-
-            certificate_number:
+            certificateNumber:
                 certificateNumber,
 
-            certificate_date:
+            certificateDate:
                 certificateDate,
 
-            marathi_name:
+            marathiName:
                 marathiName,
 
-            english_name:
+            englishName:
                 englishName,
 
             aadhaar:
@@ -808,7 +762,7 @@ document.getElementById("certificateForm")
             pincode:
                 pincode,
 
-            resident_type:
+            residentType:
                 residentType,
 
             place:
@@ -821,143 +775,102 @@ document.getElementById("certificateForm")
 
 
         /* =================================================
-           SAVE TO SUPABASE
+           SAVE CURRENT CERTIFICATE
         ================================================= */
+
+        localStorage.setItem(
+            "currentCertificate",
+            JSON.stringify(certificate)
+        );
+
+
+        /* =================================================
+           SAVE ALL CERTIFICATES
+        ================================================= */
+
+        let certificates = [];
 
         try {
 
-            const {
-                data: savedData,
-                error
-            } = await supabaseClient
-                .from("certificates")
-                .insert([data])
-                .select()
-                .single();
-
-
-            if (error) {
-
-                console.error(
-                    "Supabase Error:",
-                    error
+            certificates =
+                JSON.parse(
+                    localStorage.getItem("certificates") || "[]"
                 );
-
-                message.className =
-                    "error";
-
-                message.innerHTML =
-                    "❌ माहिती Save झाली नाही.<br><br>" +
-                    error.message;
-
-                saveButton.disabled =
-                    false;
-
-                saveButton.innerText =
-                    "💾 Save & Continue";
-
-                return;
-
-            }
-
-
-            /* =================================================
-               LOCAL STORAGE
-            ================================================= */
-
-            const localData = {
-
-                certificateNumber:
-                    savedData.certificate_number,
-
-                certificateDate:
-                    savedData.certificate_date,
-
-                marathiName:
-                    savedData.marathi_name,
-
-                englishName:
-                    savedData.english_name,
-
-                aadhaar:
-                    savedData.aadhaar,
-
-                village:
-                    savedData.village,
-
-                taluka:
-                    savedData.taluka,
-
-                district:
-                    savedData.district,
-
-                state:
-                    savedData.state,
-
-                pincode:
-                    savedData.pincode,
-
-                residentType:
-                    savedData.resident_type,
-
-                place:
-                    savedData.place,
-
-                verification:
-                    savedData.verification
-
-            };
-
-
-            localStorage.setItem(
-                "currentCertificate",
-                JSON.stringify(localData)
-            );
-
-
-            /* =================================================
-               SUCCESS
-            ================================================= */
-
-            message.className =
-                "success";
-
-            message.innerHTML =
-                "✅ माहिती Successfully Save झाली!<br>" +
-                "Certificate तयार होत आहे...";
-
-
-            setTimeout(function() {
-
-                window.location.href =
-                    "certificate.html";
-
-            }, 700);
-
 
         } catch (error) {
 
-            console.error(
-                "System Error:",
-                error
-            );
-
-            message.className =
-                "error";
-
-            message.style.display =
-                "block";
-
-            message.innerHTML =
-                "❌ System Error आला.";
-
-            saveButton.disabled =
-                false;
-
-            saveButton.innerText =
-                "💾 Save & Continue";
+            certificates = [];
 
         }
+
+
+        /* Prevent duplicate certificate number */
+
+        const alreadyExists =
+            certificates.some(function(item) {
+
+                return item.certificateNumber ===
+                    certificate.certificateNumber;
+
+            });
+
+
+        if (!alreadyExists) {
+
+            certificates.push(certificate);
+
+        }
+
+
+        localStorage.setItem(
+            "certificates",
+            JSON.stringify(certificates)
+        );
+
+
+        /* =================================================
+           SUCCESS MESSAGE
+        ================================================= */
+
+        const message =
+            document.getElementById("message");
+
+
+        const saveButton =
+            document.getElementById("saveButton");
+
+
+        message.className =
+            "success";
+
+
+        message.style.display =
+            "block";
+
+
+        message.innerHTML =
+            "✅ माहिती Successfully Save झाली!<br>" +
+            "Certificate तयार होत आहे...";
+
+
+        saveButton.disabled =
+            true;
+
+
+        saveButton.innerText =
+            "Saved ✓";
+
+
+        /* =================================================
+           OPEN CERTIFICATE
+        ================================================= */
+
+        setTimeout(function() {
+
+            window.location.href =
+                "certificate.html";
+
+        }, 700);
 
     }
 );
