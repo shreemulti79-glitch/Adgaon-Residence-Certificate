@@ -1,570 +1,141 @@
-<!DOCTYPE html>
-<html lang="mr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>नवीन रहिवासी दाखला</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, "Noto Sans Devanagari", sans-serif;
-            background: #f3f6fa;
-            color: #222;
-        }
-
-        .header {
-            background: #0d47a1;
-            color: white;
-            padding: 18px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header h1 {
-            margin: 0;
-            font-size: 22px;
-        }
-
-        .header p {
-            margin: 5px 0 0;
-            font-size: 14px;
-        }
-
-        .back-btn {
-            background: white;
-            color: #0d47a1;
-            text-decoration: none;
-            padding: 10px 16px;
-            border-radius: 7px;
-            font-weight: bold;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 0 15px;
-        }
-
-        .form-box {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.10);
-        }
-
-        .title {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .title h2 {
-            color: #0d47a1;
-            margin-bottom: 5px;
-        }
-
-        .title p {
-            color: #777;
-            margin: 0;
-        }
-
-        .row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 18px;
-        }
-
-        .field {
-            width: 100%;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 7px;
-        }
-
-        label span {
-            color: red;
-        }
-
-        input,
-        select,
-        textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 7px;
-            font-size: 16px;
-            font-family: inherit;
-        }
-
-        textarea {
-            min-height: 90px;
-            resize: vertical;
-        }
-
-        input:focus,
-        select:focus,
-        textarea:focus {
-            outline: none;
-            border-color: #1976d2;
-        }
-
-        .full {
-            margin-bottom: 18px;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 25px;
-        }
-
-        button {
-            border: none;
-            padding: 13px 28px;
-            border-radius: 7px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .save {
-            background: #1976d2;
-            color: white;
-        }
-
-        .save:hover {
-            background: #0d47a1;
-        }
-
-        .save:disabled {
-            background: #90caf9;
-            cursor: not-allowed;
-        }
-
-        .reset {
-            background: #757575;
-            color: white;
-        }
-
-        .reset:hover {
-            background: #424242;
-        }
-
-        #message {
-            display: none;
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .success {
-            background: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        .error {
-            background: #ffebee;
-            color: #c62828;
-        }
-
-        .loading {
-            background: #e3f2fd;
-            color: #1565c0;
-        }
-
-        @media (max-width: 650px) {
-
-            .header {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-
-            .row {
-                grid-template-columns: 1fr;
-                gap: 0;
-            }
-
-            .form-box {
-                padding: 20px;
-            }
-
-            .buttons {
-                flex-direction: column;
-            }
-
-            button {
-                width: 100%;
-            }
-
-        }
-
-    </style>
-
-</head>
-
-<body>
-
-<div class="header">
-
-    <div>
-        <h1>ग्रामपंचायत आडगाव</h1>
-        <p>रहिवासी दाखला प्रणाली</p>
-    </div>
-
-    <a href="dashboard.html" class="back-btn">
-        ← Dashboard
-    </a>
-
-</div>
-
-
-<div class="container">
-
-    <div class="form-box">
-
-        <div class="title">
-
-            <h2>नवीन रहिवासी दाखला</h2>
-
-            <p>
-                Residence Certificate
-            </p>
-
-        </div>
-
-
-        <form id="certificateForm">
-
-            <div class="row">
-
-                <div class="field">
-
-                    <label>
-                        दाखला क्रमांक <span>*</span>
-                    </label>
-
-                    <input
-                        type="text"
-                        id="certificateNumber"
-                        placeholder="दाखला क्रमांक"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="field">
-
-                    <label>
-                        दिनांक <span>*</span>
-                    </label>
-
-                    <input
-                        type="date"
-                        id="certificateDate"
-                        required
-                    >
-
-                </div>
-
-            </div>
-
-
-            <div class="full">
-
-                <label>
-                    अर्जदाराचे पूर्ण नाव <span>*</span>
-                </label>
-
-                <input
-                    type="text"
-                    id="marathiName"
-                    placeholder="उदा. राजेश तुकाराम साळवे"
-                    required
-                >
-
-            </div>
-
-
-            <div class="full">
-
-                <label>
-                    Applicant Name (English)
-                </label>
-
-                <input
-                    type="text"
-                    id="englishName"
-                    placeholder="उदा. Rajesh Tukaram Salve"
-                >
-
-            </div>
-
-
-            <div class="full">
-
-                <label>
-                    आधार क्रमांक <span>*</span>
-                </label>
-
-                <input
-                    type="text"
-                    id="aadhaar"
-                    maxlength="12"
-                    inputmode="numeric"
-                    placeholder="12 अंकी आधार क्रमांक"
-                    required
-                >
-
-            </div>
-
-
-            <div class="row">
-
-                <div class="field">
-
-                    <label>
-                        गाव <span>*</span>
-                    </label>
-
-                    <input
-                        type="text"
-                        id="village"
-                        value="आडगाव"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="field">
-
-                    <label>
-                        तालुका <span>*</span>
-                    </label>
-
-                    <input
-                        type="text"
-                        id="taluka"
-                        value="भोकरदन"
-                        required
-                    >
-
-                </div>
-
-            </div>
-
-
-            <div class="row">
-
-                <div class="field">
-
-                    <label>
-                        जिल्हा <span>*</span>
-                    </label>
-
-                    <input
-                        type="text"
-                        id="district"
-                        value="जालना"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="field">
-
-                    <label>
-                        राज्य <span>*</span>
-                    </label>
-
-                    <input
-                        type="text"
-                        id="state"
-                        value="महाराष्ट्र"
-                        required
-                    >
-
-                </div>
-
-            </div>
-
-
-            <div class="row">
-
-                <div class="field">
-
-                    <label>
-                        पिनकोड <span>*</span>
-                    </label>
-
-                    <input
-                        type="text"
-                        id="pincode"
-                        maxlength="6"
-                        inputmode="numeric"
-                        value="431112"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="field">
-
-                    <label>
-                        रहिवासी प्रकार <span>*</span>
-                    </label>
-
-                    <select id="residentType" required>
-
-                        <option value="">
-                            निवडा
-                        </option>
-
-                        <option value="कायम">
-                            कायम रहिवासी
-                        </option>
-
-                        <option value="तात्पुरते">
-                            तात्पुरते रहिवासी
-                        </option>
-
-                    </select>
-
-                </div>
-
-            </div>
-
-
-            <div class="full">
-
-                <label>
-                    ठिकाण
-                </label>
-
-                <input
-                    type="text"
-                    id="place"
-                    value="आडगाव"
-                >
-
-            </div>
-
-
-            <div class="full">
-
-                <label>
-                    दाखला देण्याचा आधार
-                </label>
-
-                <textarea id="verification">सदर दाखला त्यांचे विनंती अर्जानुसार, रहिवासी पुराव्याची पडताळणी व स्थानिक चौकशीच्या आधारे देण्यात येत आहे.</textarea>
-
-            </div>
-
-
-            <div class="buttons">
-
-                <button
-                    type="submit"
-                    class="save"
-                    id="saveButton"
-                >
-                    💾 Save & Continue
-                </button>
-
-                <button
-                    type="reset"
-                    class="reset"
-                >
-                    Reset
-                </button>
-
-            </div>
-
-
-            <div id="message"></div>
-
-
-        </form>
-
-    </div>
-
-</div>
-
-
 <script>
-
 
 /* =====================================================
    LOGIN CHECK
 ===================================================== */
 
 if (sessionStorage.getItem("loggedIn") !== "true") {
-
     window.location.href = "index.html";
+}
+
+
+/* =====================================================
+   EDIT MODE / NEW MODE
+===================================================== */
+
+let editMode = false;
+let editingCertificateNumber = "";
+
+
+/* =====================================================
+   LOAD CURRENT CERTIFICATE
+===================================================== */
+
+const savedCurrent =
+    localStorage.getItem("currentCertificate");
+
+
+if (savedCurrent) {
+
+    try {
+
+        const data =
+            JSON.parse(savedCurrent);
+
+        /*
+         * जर Search मधून Edit केले असेल
+         * तर जुनी माहिती form मध्ये भरा
+         */
+
+        if (data && data.certificateNumber) {
+
+            editMode = true;
+
+            editingCertificateNumber =
+                String(data.certificateNumber);
+
+            document.getElementById("certificateNumber").value =
+                data.certificateNumber || "";
+
+            document.getElementById("certificateDate").value =
+                data.certificateDate || "";
+
+            document.getElementById("marathiName").value =
+                data.marathiName || "";
+
+            document.getElementById("englishName").value =
+                data.englishName || "";
+
+            document.getElementById("aadhaar").value =
+                data.aadhaar || "";
+
+            document.getElementById("village").value =
+                data.village || "आडगाव";
+
+            document.getElementById("taluka").value =
+                data.taluka || "भोकरदन";
+
+            document.getElementById("district").value =
+                data.district || "जालना";
+
+            document.getElementById("state").value =
+                data.state || "महाराष्ट्र";
+
+            document.getElementById("pincode").value =
+                data.pincode || "431112";
+
+            document.getElementById("residentType").value =
+                data.residentType || "";
+
+            document.getElementById("place").value =
+                data.place || "आडगाव";
+
+            document.getElementById("verification").value =
+                data.verification ||
+                "सदर दाखला त्यांचे विनंती अर्जानुसार, रहिवासी पुराव्याची पडताळणी व स्थानिक चौकशीच्या आधारे देण्यात येत आहे.";
+
+        }
+
+    } catch (error) {
+
+        console.log("Current certificate load error:", error);
+
+    }
 
 }
 
 
 /* =====================================================
-   TODAY DATE
+   NEW CERTIFICATE
 ===================================================== */
 
-const today = new Date();
+if (!editMode) {
 
-const yyyy =
-    today.getFullYear();
+    const today = new Date();
 
-const mm =
-    String(today.getMonth() + 1)
-    .padStart(2, "0");
+    const yyyy =
+        today.getFullYear();
 
-const dd =
-    String(today.getDate())
-    .padStart(2, "0");
+    const mm =
+        String(today.getMonth() + 1)
+        .padStart(2, "0");
 
-
-document.getElementById("certificateDate").value =
-    `${yyyy}-${mm}-${dd}`;
+    const dd =
+        String(today.getDate())
+        .padStart(2, "0");
 
 
-/* =====================================================
-   CERTIFICATE NUMBER
-===================================================== */
+    document.getElementById("certificateDate").value =
+        `${yyyy}-${mm}-${dd}`;
 
-function generateCertificateNumber() {
 
-    const random =
-        Math.floor(
-            100000000000 +
-            Math.random() * 900000000000
-        );
+    function generateCertificateNumber() {
 
-    return random.toString();
+        const random =
+            Math.floor(
+                100000000000 +
+                Math.random() * 900000000000
+            );
+
+        return random.toString();
+
+    }
+
+
+    document.getElementById("certificateNumber").value =
+        generateCertificateNumber();
 
 }
-
-
-document.getElementById("certificateNumber").value =
-    generateCertificateNumber();
 
 
 /* =====================================================
@@ -572,15 +143,12 @@ document.getElementById("certificateNumber").value =
 ===================================================== */
 
 document.getElementById("aadhaar")
-.addEventListener(
-    "input",
-    function() {
+.addEventListener("input", function() {
 
-        this.value =
-            this.value.replace(/\D/g, "");
+    this.value =
+        this.value.replace(/\D/g, "");
 
-    }
-);
+});
 
 
 /* =====================================================
@@ -588,229 +156,249 @@ document.getElementById("aadhaar")
 ===================================================== */
 
 document.getElementById("pincode")
-.addEventListener(
-    "input",
-    function() {
+.addEventListener("input", function() {
 
-        this.value =
-            this.value.replace(/\D/g, "");
+    this.value =
+        this.value.replace(/\D/g, "");
 
-    }
-);
+});
 
 
 /* =====================================================
-   SAVE FORM
+   SAVE / UPDATE
 ===================================================== */
 
 document.getElementById("certificateForm")
-.addEventListener(
-    "submit",
-    function(e) {
+.addEventListener("submit", function(e) {
 
-        e.preventDefault();
+    e.preventDefault();
 
 
-        const certificateNumber =
-            document.getElementById(
-                "certificateNumber"
-            ).value.trim();
+    const certificateNumber =
+        document.getElementById("certificateNumber")
+        .value.trim();
 
 
-        const certificateDate =
-            document.getElementById(
-                "certificateDate"
-            ).value;
+    const certificateDate =
+        document.getElementById("certificateDate")
+        .value;
 
 
-        const marathiName =
-            document.getElementById(
-                "marathiName"
-            ).value.trim();
+    const marathiName =
+        document.getElementById("marathiName")
+        .value.trim();
 
 
-        const englishName =
-            document.getElementById(
-                "englishName"
-            ).value.trim();
+    const englishName =
+        document.getElementById("englishName")
+        .value.trim();
 
 
-        const aadhaar =
-            document.getElementById(
-                "aadhaar"
-            ).value.trim();
+    const aadhaar =
+        document.getElementById("aadhaar")
+        .value.trim();
 
 
-        const village =
-            document.getElementById(
-                "village"
-            ).value.trim();
+    const village =
+        document.getElementById("village")
+        .value.trim();
 
 
-        const taluka =
-            document.getElementById(
-                "taluka"
-            ).value.trim();
+    const taluka =
+        document.getElementById("taluka")
+        .value.trim();
 
 
-        const district =
-            document.getElementById(
-                "district"
-            ).value.trim();
+    const district =
+        document.getElementById("district")
+        .value.trim();
 
 
-        const state =
-            document.getElementById(
-                "state"
-            ).value.trim();
+    const state =
+        document.getElementById("state")
+        .value.trim();
 
 
-        const pincode =
-            document.getElementById(
-                "pincode"
-            ).value.trim();
+    const pincode =
+        document.getElementById("pincode")
+        .value.trim();
 
 
-        const residentType =
-            document.getElementById(
-                "residentType"
-            ).value;
+    const residentType =
+        document.getElementById("residentType")
+        .value;
 
 
-        const place =
-            document.getElementById(
-                "place"
-            ).value.trim();
+    const place =
+        document.getElementById("place")
+        .value.trim();
 
 
-        const verification =
-            document.getElementById(
-                "verification"
-            ).value.trim();
+    const verification =
+        document.getElementById("verification")
+        .value.trim();
 
 
-        /* =================================================
-           VALIDATION
-        ================================================= */
+    /* =================================================
+       VALIDATION
+    ================================================= */
 
-        if (aadhaar.length !== 12) {
+    if (aadhaar.length !== 12) {
 
-            alert(
-                "कृपया 12 अंकी आधार क्रमांक टाका."
-            );
-
-            return;
-
-        }
-
-
-        if (pincode.length !== 6) {
-
-            alert(
-                "कृपया 6 अंकी पिनकोड टाका."
-            );
-
-            return;
-
-        }
-
-
-        if (!residentType) {
-
-            alert(
-                "कृपया रहिवासी प्रकार निवडा."
-            );
-
-            return;
-
-        }
-
-
-        /* =================================================
-           CREATE CERTIFICATE OBJECT
-        ================================================= */
-
-        const certificate = {
-
-            certificateNumber:
-                certificateNumber,
-
-            certificateDate:
-                certificateDate,
-
-            marathiName:
-                marathiName,
-
-            englishName:
-                englishName,
-
-            aadhaar:
-                aadhaar,
-
-            village:
-                village,
-
-            taluka:
-                taluka,
-
-            district:
-                district,
-
-            state:
-                state,
-
-            pincode:
-                pincode,
-
-            residentType:
-                residentType,
-
-            place:
-                place,
-
-            verification:
-                verification
-
-        };
-
-
-        /* =================================================
-           SAVE CURRENT CERTIFICATE
-        ================================================= */
-
-        localStorage.setItem(
-            "currentCertificate",
-            JSON.stringify(certificate)
+        alert(
+            "कृपया 12 अंकी आधार क्रमांक टाका."
         );
 
+        return;
+    }
 
-        /* =================================================
-           SAVE ALL CERTIFICATES
-        ================================================= */
 
-        let certificates = [];
+    if (pincode.length !== 6) {
 
-        try {
+        alert(
+            "कृपया 6 अंकी पिनकोड टाका."
+        );
 
-            certificates =
-                JSON.parse(
-                    localStorage.getItem("certificates") || "[]"
-                );
+        return;
+    }
 
-        } catch (error) {
 
+    if (!residentType) {
+
+        alert(
+            "कृपया रहिवासी प्रकार निवडा."
+        );
+
+        return;
+    }
+
+
+    /* =================================================
+       CERTIFICATE OBJECT
+    ================================================= */
+
+    const certificate = {
+
+        certificateNumber:
+            certificateNumber,
+
+        certificateDate:
+            certificateDate,
+
+        marathiName:
+            marathiName,
+
+        englishName:
+            englishName,
+
+        aadhaar:
+            aadhaar,
+
+        village:
+            village,
+
+        taluka:
+            taluka,
+
+        district:
+            district,
+
+        state:
+            state,
+
+        pincode:
+            pincode,
+
+        residentType:
+            residentType,
+
+        place:
+            place,
+
+        verification:
+            verification
+
+    };
+
+
+    /* =================================================
+       SAVE CURRENT
+    ================================================= */
+
+    localStorage.setItem(
+        "currentCertificate",
+        JSON.stringify(certificate)
+    );
+
+
+    /* =================================================
+       GET ALL CERTIFICATES
+    ================================================= */
+
+    let certificates = [];
+
+    try {
+
+        certificates =
+            JSON.parse(
+                localStorage.getItem("certificates") || "[]"
+            );
+
+        if (!Array.isArray(certificates)) {
             certificates = [];
+        }
+
+    } catch (error) {
+
+        certificates = [];
+
+    }
+
+
+    /* =================================================
+       EDIT MODE
+       UPDATE EXISTING CERTIFICATE
+    ================================================= */
+
+    if (editMode) {
+
+        const index =
+            certificates.findIndex(function(item) {
+
+                return String(
+                    item.certificateNumber || ""
+                ).trim() === editingCertificateNumber;
+
+            });
+
+
+        if (index !== -1) {
+
+            certificates[index] =
+                certificate;
+
+        } else {
+
+            certificates.push(certificate);
 
         }
 
+    }
 
-        /* Prevent duplicate certificate number */
+
+    /* =================================================
+       NEW MODE
+       ADD NEW CERTIFICATE
+    ================================================= */
+
+    else {
 
         const alreadyExists =
             certificates.some(function(item) {
 
-                return item.certificateNumber ===
-                    certificate.certificateNumber;
+                return String(
+                    item.certificateNumber || ""
+                ).trim() === certificateNumber;
 
             });
 
@@ -821,63 +409,73 @@ document.getElementById("certificateForm")
 
         }
 
-
-        localStorage.setItem(
-            "certificates",
-            JSON.stringify(certificates)
-        );
+    }
 
 
-        /* =================================================
-           SUCCESS MESSAGE
-        ================================================= */
+    /* =================================================
+       SAVE ALL
+    ================================================= */
 
-        const message =
-            document.getElementById("message");
-
-
-        const saveButton =
-            document.getElementById("saveButton");
+    localStorage.setItem(
+        "certificates",
+        JSON.stringify(certificates)
+    );
 
 
-        message.className =
-            "success";
+    /* =================================================
+       SUCCESS MESSAGE
+    ================================================= */
+
+    const message =
+        document.getElementById("message");
 
 
-        message.style.display =
-            "block";
+    const saveButton =
+        document.getElementById("saveButton");
 
+
+    message.className =
+        "success";
+
+
+    message.style.display =
+        "block";
+
+
+    if (editMode) {
+
+        message.innerHTML =
+            "✅ दाखला माहिती Successfully Update झाली!<br>" +
+            "Certificate तयार होत आहे...";
+
+    } else {
 
         message.innerHTML =
             "✅ माहिती Successfully Save झाली!<br>" +
             "Certificate तयार होत आहे...";
 
-
-        saveButton.disabled =
-            true;
-
-
-        saveButton.innerText =
-            "Saved ✓";
-
-
-        /* =================================================
-           OPEN CERTIFICATE
-        ================================================= */
-
-        setTimeout(function() {
-
-            window.location.href =
-                "certificate.html";
-
-        }, 700);
-
     }
-);
 
+
+    saveButton.disabled =
+        true;
+
+
+    saveButton.innerText =
+        "Saved ✓";
+
+
+    /* =================================================
+       OPEN CERTIFICATE
+    ================================================= */
+
+    setTimeout(function() {
+
+        window.location.href =
+            "certificate.html";
+
+    }, 700);
+
+});
 
 </script>
-
-</body>
-
-</html>
