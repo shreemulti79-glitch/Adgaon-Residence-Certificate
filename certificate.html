@@ -2,25 +2,18 @@
 <html lang="mr">
 
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Residence Certificate - Adgaon</title>
 
 <style>
 
-/* =========================================
-   BASIC
-========================================= */
-
 *{
     box-sizing:border-box;
 }
 
-html,
-body{
+html,body{
     margin:0;
     padding:0;
 }
@@ -28,23 +21,17 @@ body{
 body{
     background:#eeeeee;
     color:#111;
-
-    font-family:
-        "Noto Sans Devanagari",
-        "Mangal",
-        Arial,
-        sans-serif;
+    font-family:"Noto Sans Devanagari","Mangal",Arial,sans-serif;
 }
 
 
-/* =========================================
+/* =========================
    TOP BAR
-========================================= */
+========================= */
 
 .topbar{
     background:#0d47a1;
-    color:white;
-
+    color:#fff;
     padding:10px 18px;
 
     display:flex;
@@ -64,360 +51,264 @@ body{
 
 .top-buttons button{
     border:0;
-
     padding:8px 15px;
-
     border-radius:5px;
-
     cursor:pointer;
-
     font-weight:bold;
-
     font-size:14px;
 }
 
 .dashboard{
-    background:white;
+    background:#fff;
     color:#0d47a1;
 }
 
 .print{
     background:#2e7d32;
-    color:white;
+    color:#fff;
 }
 
 
-/* =========================================
-   A4 PAGE
-========================================= */
+/* =========================
+   A4 CERTIFICATE
+========================= */
 
 .a4{
-
     width:210mm;
-
     min-height:297mm;
 
     margin:18px auto;
 
     background:#fff;
 
-    /* FULL PAGE BORDER */
-    border:2px solid #222;
+    border:1px solid #222;
 
-    box-shadow:0 0 8px rgba(0,0,0,.20);
+    box-shadow:0 0 7px rgba(0,0,0,.18);
 
-    padding:5mm 7mm 7mm;
+    padding:3mm 4mm 5mm;
 
     position:relative;
 }
 
 
-/* =========================================
+/* =========================
    HEADER
-========================================= */
+========================= */
 
 .header{
-
     text-align:center;
-
-    padding-top:0;
-
 }
 
 
-/* =========================================
-   GOVERNMENT LOGO
-========================================= */
+/* =========================
+   LOGO
+========================= */
 
 .logo{
+    width:32mm;
+    height:37mm;
 
-    width:22mm;
-
-    height:22mm;
-
-    margin:0 auto 1mm;
+    margin:0 auto;
 
     display:flex;
-
-    align-items:center;
-
     justify-content:center;
-
+    align-items:flex-start;
 }
 
 .logo img{
-
-    width:20mm;
-
-    height:20mm;
+    width:30mm;
+    height:35mm;
 
     object-fit:contain;
-
     display:block;
-
 }
 
 
-/* =========================================
+/* =========================
    OFFICE NAME
-========================================= */
+========================= */
 
 .office-marathi{
-
     font-size:14px;
-
-    font-weight:normal;
-
     line-height:1.25;
-
     margin:0;
-
 }
 
 .office-english{
-
     font-family:Arial,sans-serif;
-
     font-size:13px;
-
     line-height:1.25;
-
     margin:0;
-
 }
 
 
-/* =========================================
+/* =========================
    TITLE
-========================================= */
+========================= */
 
 .title-box{
-
-    margin-top:3mm;
+    margin-top:2mm;
 
     background:#c6c6c6;
 
     border-top:1px solid #777;
-
     border-bottom:1px solid #777;
 
     text-align:center;
 
-    padding:2px 0 3px;
-
+    padding:1.5mm 0 1.5mm;
 }
 
 .title-marathi{
-
     font-size:15px;
-
-    line-height:1.2;
-
+    line-height:1.15;
 }
 
 .title-english{
-
     font-family:Arial,sans-serif;
-
     font-size:13px;
-
-    line-height:1.2;
-
-    margin-top:0;
-
+    line-height:1.15;
 }
 
 
-/* =========================================
-   MARATHI NUMBER / DATE
-========================================= */
+/* =========================
+   NUMBER / DATE
+========================= */
 
 .info-area{
-
-    padding:4mm 0 0;
-
-    font-size:12px;
+    padding-top:3mm;
 
     display:flex;
-
     justify-content:space-between;
 
-    align-items:center;
-
+    font-size:12px;
+    line-height:1.4;
 }
 
 .info-left{
-
     text-align:left;
-
 }
 
 .info-right{
-
     text-align:right;
-
 }
 
 
-/* =========================================
+/* =========================
    ENGLISH NUMBER / DATE
-========================================= */
+========================= */
 
 .info-english{
+    padding-top:2mm;
 
-    padding:2mm 0 0;
+    display:flex;
+    justify-content:space-between;
 
     font-family:Arial,sans-serif;
 
     font-size:12px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
+    line-height:1.4;
 }
 
 
-/* =========================================
+/* =========================
    OFFICER
-========================================= */
+========================= */
 
 .officer{
-
     margin-top:8mm;
-
-    padding:0;
 
     font-size:12px;
 
     line-height:1.5;
-
 }
 
 .officer-marathi{
-
     text-align:left;
-
 }
 
 .officer-english{
-
     font-family:Arial,sans-serif;
-
-    margin-top:1px;
-
     text-align:left;
-
 }
 
 
-/* =========================================
+/* =========================
    MAIN CONTENT
-========================================= */
+========================= */
 
 .content{
-
-    padding:0;
-
-    margin-top:7mm;
+    margin-top:4mm;
 
     font-size:13px;
 
-    line-height:1.85;
+    line-height:1.65;
 
     text-align:left;
-
 }
 
 .content p{
-
-    margin:0 0 5mm 0;
-
-}
-
-.bold{
-
-    font-weight:bold;
-
+    margin:0;
 }
 
 
-/* =========================================
+/* =========================
    ENGLISH CONTENT
-========================================= */
+========================= */
 
 .english-content{
-
     font-family:Arial,sans-serif;
 
     font-size:12px;
 
-    line-height:1.75;
+    line-height:1.55;
 
-    margin-top:1mm;
-
+    margin-top:1mm !important;
 }
 
 
-/* =========================================
-   VERIFICATION MARATHI
-========================================= */
+/* =========================
+   VERIFICATION
+========================= */
 
 .verification-marathi{
-
-    margin-top:5mm;
+    margin-top:7mm !important;
 
     font-size:12.5px;
 
-    line-height:1.8;
-
+    line-height:1.7;
 }
 
-
-/* =========================================
-   VERIFICATION ENGLISH
-========================================= */
-
 .verification-english{
-
     font-family:Arial,sans-serif;
 
     font-size:12px;
 
-    line-height:1.7;
+    line-height:1.55;
 
-    margin-top:4mm;
-
+    margin-top:4mm !important;
 }
 
 
-/* =========================================
-   SIGNATURE AREA
-========================================= */
+/* =========================
+   SIGNATURE
+========================= */
 
 .signature-area{
-
-    margin-top:15mm;
-
-    padding:0;
-
+    margin-top:12mm;
 }
 
 
-/* =========================================
+/* =========================
    SIGNATURE BAR
-========================================= */
+========================= */
 
 .signature-bar{
-
     height:8mm;
 
     background:#c6c6c6;
 
     border-top:1px solid #999;
-
     border-bottom:1px solid #999;
 
     display:flex;
@@ -429,16 +320,14 @@ body{
     padding-right:20mm;
 
     font-size:12px;
-
 }
 
 
-/* =========================================
-   SIGNATURE BOTTOM
-========================================= */
+/* =========================
+   BOTTOM
+========================= */
 
 .signature-bottom{
-
     display:flex;
 
     justify-content:space-between;
@@ -446,160 +335,125 @@ body{
     align-items:flex-start;
 
     padding-top:2mm;
-
 }
 
 
-/* =========================================
+/* =========================
    PLACE
-========================================= */
+========================= */
 
 .place{
-
     font-size:12px;
 
     line-height:2;
 
     text-align:left;
-
 }
 
 
-/* =========================================
+/* =========================
    SIGNATURE TEXT
-========================================= */
+========================= */
 
 .signature{
+    min-width:75mm;
 
     font-size:12px;
 
     line-height:1.7;
 
     text-align:center;
-
-    min-width:75mm;
-
 }
 
 
-/* =========================================
+/* =========================
    PRINT
-========================================= */
+========================= */
 
 @media print{
 
-    html,
-    body{
-
+    html,body{
         margin:0;
-
         padding:0;
-
-        background:white;
-
+        background:#fff;
     }
 
     .topbar{
-
         display:none !important;
-
     }
 
     .a4{
-
         width:210mm;
-
         min-height:297mm;
 
         margin:0;
 
-        /* PRINT PAGE BORDER */
+        background:#fff;
 
-        border:2px solid #222;
+        border:1px solid #222;
 
         box-shadow:none;
 
-        padding:5mm 7mm 7mm;
+        padding:3mm 4mm 5mm;
 
         page-break-after:always;
-
     }
 
     @page{
-
         size:A4;
-
         margin:0;
-
     }
-
 }
 
 
-/* =========================================
+/* =========================
    MOBILE
-========================================= */
+========================= */
 
 @media screen and (max-width:800px){
 
     body{
-
         overflow-x:hidden;
-
     }
 
     .a4{
-
         transform-origin:top left;
-
         transform:scale(.75);
 
         margin-left:0;
-
         margin-top:10px;
 
         margin-bottom:-70mm;
-
     }
-
 }
 
 </style>
-
 </head>
 
 
 <body>
 
 
-<!-- =========================================
+<!-- =========================
      TOP BAR
-========================================= -->
+========================= -->
 
 <div class="topbar">
 
-    <h2>
-        रहिवासी दाखला
-    </h2>
-
+    <h2>रहिवासी दाखला</h2>
 
     <div class="top-buttons">
 
         <button
             class="dashboard"
             onclick="goDashboard()">
-
             ← Dashboard
-
         </button>
-
 
         <button
             class="print"
             onclick="window.print()">
-
             🖨️ Print
-
         </button>
 
     </div>
@@ -608,21 +462,19 @@ body{
 
 
 
-<!-- =========================================
+<!-- =========================
      CERTIFICATE
-========================================= -->
+========================= -->
 
 <div class="a4">
 
 
-    <!-- =====================================
-         HEADER
-    ====================================== -->
+    <!-- HEADER -->
 
     <div class="header">
 
 
-        <!-- GOVERNMENT LOGO -->
+        <!-- LOGO -->
 
         <div class="logo">
 
@@ -633,69 +485,50 @@ body{
         </div>
 
 
-        <!-- OFFICE NAME -->
+        <!-- OFFICE -->
 
         <div class="office-marathi">
-
-            ग्रामपंचायत कार्यालय आडगाव
-            ता.भोकरदन जि.जालना
-
+            ग्रामपंचायत कार्यालय आडगाव ता.भोकरदन जि.जालना
         </div>
 
-
         <div class="office-english">
-
-            Grampanchayat Office Adgaon
-            Tal.Bhokordan Dist.Jalna
-
+            Grampanchayat Office Adgaon Tal.BhokordanDist.Jalna
         </div>
 
     </div>
 
 
 
-    <!-- =====================================
-         TITLE
-    ====================================== -->
+    <!-- TITLE -->
 
     <div class="title-box">
 
         <div class="title-marathi">
-
             रहिवासी दाखला
-
         </div>
 
-
         <div class="title-english">
-
             Residence Certificate
-
         </div>
 
     </div>
 
 
 
-    <!-- =====================================
-         NUMBER / DATE
-    ====================================== -->
+    <!-- NUMBER / DATE -->
 
     <div class="info-area">
 
         <div class="info-left">
 
             दाखला क्रमांक :
-
             <span id="certificateNumber"></span>
 
         </div>
 
-
         <div class="info-right">
 
             दिनांक :-
-
             <span id="certificateDate"></span>
 
         </div>
@@ -704,25 +537,20 @@ body{
 
 
 
-    <!-- =====================================
-         ENGLISH NUMBER / DATE
-    ====================================== -->
+    <!-- ENGLISH NUMBER / DATE -->
 
     <div class="info-english">
 
         <div>
 
             Certificate Number :
-
             <span id="certificateNumberEnglish"></span>
 
         </div>
 
-
         <div>
 
             Date :-
-
             <span id="certificateDateEnglish"></span>
 
         </div>
@@ -731,9 +559,7 @@ body{
 
 
 
-    <!-- =====================================
-         OFFICER
-    ====================================== -->
+    <!-- OFFICER -->
 
     <div class="officer">
 
@@ -744,11 +570,10 @@ body{
 
         </div>
 
-
         <div class="officer-english">
 
             Sarpanch/Gramsevak/Village Development Officer
-            Grampanchayat Adgaon Tal.Bhokordan Dist. Jalna
+            Grampanchayat Adgaon Tal.Bhokardan Dist. Jalna
 
         </div>
 
@@ -756,9 +581,7 @@ body{
 
 
 
-    <!-- =====================================
-         CONTENT
-    ====================================== -->
+    <!-- CONTENT -->
 
     <div class="content">
 
@@ -768,53 +591,25 @@ body{
         <p>
 
             यांच्याकडून दाखला देण्यात येतो कि
-
-            <span
-                class="bold"
-                id="marathiName">
-            </span>
+            <span class="bold" id="marathiName"></span>
 
             यांचे आधार क्र.
-
-            <span
-                class="bold"
-                id="aadhaar">
-            </span>
+            <span class="bold" id="aadhaar"></span>
 
             हे ग्रामपंचायत आडगाव हद्दीतील मौजे
-
-            <span
-                class="bold"
-                id="village">
-            </span>
+            <span class="bold" id="village"></span>
 
             ता.
-
-            <span
-                class="bold"
-                id="taluka">
-            </span>
+            <span class="bold" id="taluka"></span>
 
             जि.
-
-            <span
-                class="bold"
-                id="district">
-            </span>
+            <span class="bold" id="district"></span>
 
             महाराष्ट्र
-
-            <span
-                class="bold"
-                id="pincode">
-            </span>
+            <span class="bold" id="pincode"></span>
 
             येथील
-
-            <span
-                class="bold"
-                id="residentType">
-            </span>
+            <span class="bold" id="residentType"></span>
 
             रहिवासी आहेत.
 
@@ -827,75 +622,53 @@ body{
         <p class="english-content">
 
             This is to certify that
-
             <b id="englishName"></b>
 
             UID / EID No.
-
             <b id="aadhaarEnglish"></b>
 
-            is a resident of Grampanchayat
+            is a resident of Grampanchayat Adgaon,
+            Village <b id="villageEnglish"></b>,
 
-            <b>Adgaon</b>,
+            Tal. <b id="talukaEnglish"></b>,
 
-            Village
+            Dist. <b id="districtEnglish"></b>,
 
-            <b id="villageEnglish"></b>,
-
-            Tal.
-
-            <b id="talukaEnglish"></b>,
-
-            Dist.
-
-            <b id="districtEnglish"></b>,
-
-            Maharashtra
-
-            <b id="pincodeEnglish"></b>.
+            Maharashtra <b id="pincodeEnglish"></b>.
 
         </p>
 
 
 
-        <!-- =================================
-             VERIFICATION MARATHI
-        ================================== -->
+        <!-- VERIFICATION MARATHI -->
 
         <p class="verification-marathi">
 
             सदर दाखला त्यांचे विनंती अर्जानुसार,
-            रहिवासी पुराव्याची पडताळणी व स्थानिक
-            चौकशीच्या आधारे देण्यात येत आहे.
+            रहिवासी पुराव्याची पडताळणी व स्थानिक चौकशीच्या
+            आधारे देण्यात येत आहे.
 
         </p>
 
 
 
-        <!-- =================================
-             VERIFICATION ENGLISH
-        ================================== -->
+        <!-- VERIFICATION ENGLISH -->
 
         <p class="verification-english">
 
             Certificate is issued on request of the applicant,
-            after his resident verification &amp; local level enquiry.
+            after his resident verification &amp;local level enquiry.
 
         </p>
-
 
     </div>
 
 
 
-    <!-- =====================================
-         SIGNATURE
-    ====================================== -->
+    <!-- SIGNATURE -->
 
     <div class="signature-area">
 
-
-        <!-- SIGNATURE BAR -->
 
         <div class="signature-bar">
 
@@ -903,9 +676,6 @@ body{
 
         </div>
 
-
-
-        <!-- SIGNATURE BOTTOM -->
 
         <div class="signature-bottom">
 
@@ -918,7 +688,7 @@ body{
 
                 <br>
 
-                Place : Adgaon
+                Place :Adgaon
 
             </div>
 
@@ -940,7 +710,6 @@ body{
 
             </div>
 
-
         </div>
 
     </div>
@@ -953,22 +722,22 @@ body{
 <script>
 
 
-/* =========================================
+/* =========================
    LOGIN CHECK
-========================================= */
+========================= */
 
 if(
     sessionStorage.getItem("loggedIn") !== "true"
 ){
 
-    window.location.href = "index.html";
+    window.location.href="index.html";
 
 }
 
 
-/* =========================================
-   GET SAVED DATA
-========================================= */
+/* =========================
+   GET DATA
+========================= */
 
 const saved =
     localStorage.getItem("currentCertificate");
@@ -978,7 +747,7 @@ if(!saved){
 
     alert("Certificate ची माहिती उपलब्ध नाही.");
 
-    window.location.href = "form.html";
+    window.location.href="form.html";
 
 }
 
@@ -988,29 +757,22 @@ const data =
 
 
 
-/* =========================================
-   DATE FORMAT
-========================================= */
+/* =========================
+   DATE
+========================= */
 
 function formatDate(date){
 
     if(!date){
-
         return "";
-
     }
-
 
     const parts =
         date.split("-");
 
-
     if(parts.length !== 3){
-
         return date;
-
     }
-
 
     return parts[2] + "-" +
            parts[1] + "-" +
@@ -1019,10 +781,9 @@ function formatDate(date){
 }
 
 
-
-/* =========================================
-   CERTIFICATE NUMBER
-========================================= */
+/* =========================
+   NUMBER
+========================= */
 
 document.getElementById(
     "certificateNumber"
@@ -1036,10 +797,9 @@ document.getElementById(
     data.certificateNumber || "";
 
 
-
-/* =========================================
+/* =========================
    DATE
-========================================= */
+========================= */
 
 document.getElementById(
     "certificateDate"
@@ -1053,10 +813,9 @@ document.getElementById(
     formatDate(data.certificateDate);
 
 
-
-/* =========================================
+/* =========================
    NAME
-========================================= */
+========================= */
 
 document.getElementById(
     "marathiName"
@@ -1072,10 +831,9 @@ document.getElementById(
     "";
 
 
-
-/* =========================================
+/* =========================
    AADHAAR
-========================================= */
+========================= */
 
 document.getElementById(
     "aadhaar"
@@ -1089,15 +847,14 @@ document.getElementById(
     data.aadhaar || "";
 
 
-
-/* =========================================
+/* =========================
    VILLAGE
-========================================= */
+========================= */
 
 document.getElementById(
     "village"
 ).textContent =
-    data.village || "Adgaon";
+    data.village || "आडगाव";
 
 
 document.getElementById(
@@ -1106,15 +863,14 @@ document.getElementById(
     data.village || "Adgaon";
 
 
-
-/* =========================================
+/* =========================
    TALUKA
-========================================= */
+========================= */
 
 document.getElementById(
     "taluka"
 ).textContent =
-    data.taluka || "Bhokardan";
+    data.taluka || "भोकरदन";
 
 
 document.getElementById(
@@ -1123,15 +879,14 @@ document.getElementById(
     data.taluka || "Bhokardan";
 
 
-
-/* =========================================
+/* =========================
    DISTRICT
-========================================= */
+========================= */
 
 document.getElementById(
     "district"
 ).textContent =
-    data.district || "Jalna";
+    data.district || "जालना";
 
 
 document.getElementById(
@@ -1140,10 +895,9 @@ document.getElementById(
     data.district || "Jalna";
 
 
-
-/* =========================================
+/* =========================
    PINCODE
-========================================= */
+========================= */
 
 document.getElementById(
     "pincode"
@@ -1157,10 +911,9 @@ document.getElementById(
     data.pincode || "431112";
 
 
-
-/* =========================================
+/* =========================
    RESIDENT TYPE
-========================================= */
+========================= */
 
 document.getElementById(
     "residentType"
@@ -1168,10 +921,9 @@ document.getElementById(
     data.residentType || "कायम";
 
 
-
-/* =========================================
+/* =========================
    DASHBOARD
-========================================= */
+========================= */
 
 function goDashboard(){
 
@@ -1182,7 +934,5 @@ function goDashboard(){
 
 </script>
 
-
 </body>
-
 </html>
