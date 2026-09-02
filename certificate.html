@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="mr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Residence Certificate</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:#eeeeee;
+    font-family:"Noto Sans Devanagari",
+                "Mangal",
+                Arial,
+                sans-serif;
+    color:#111;
+}
+
+/* TOP BAR */
+
+.topbar{
+    background:#0d47a1;
+    color:white;
+    padding:12px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.topbar h2{
+    margin:0;
+    font-size:20px;
+}
+
+.top-buttons{
+    display:flex;
+    gap:8px;
+}
+
+.top-buttons button{
+    border:0;
+    padding:9px 16px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.dashboard{
+    background:white;
+    color:#0d47a1;
+}
+
+.print{
+    background:#2e7d32;
+    color:white;
+}
+
+
+/* A4 PAGE */
+
+.a4{
+    width:210mm;
+    min-height:297mm;
+    margin:20px auto;
+    background:white;
+    padding:18mm 18mm 15mm 18mm;
+    box-shadow:0 0 12px rgba(0,0,0,.25);
+}
+
+
+/* HEADER */
+
+.office-title{
+    text-align:center;
+    font-weight:bold;
+}
+
+.office-title .marathi{
+    font-size:22px;
+}
+
+.office-title .english{
+    font-size:15px;
+    margin-top:5px;
+}
+
+.line{
+    border-bottom:2px solid #111;
+    margin-top:10px;
+}
+
+
+/* CERTIFICATE TITLE */
+
+.certificate-title{
+    text-align:center;
+    margin-top:15px;
+}
+
+.certificate-title .mr{
+    font-size:26px;
+    font-weight:bold;
+}
+
+.certificate-title .en{
+    font-size:18px;
+    font-weight:bold;
+    margin-top:3px;
+}
+
+
+/* NUMBER */
+
+.number-area{
+    margin-top:18px;
+    display:flex;
+    justify-content:space-between;
+    font-size:15px;
+    font-weight:bold;
+}
+
+.number-area div{
+    width:48%;
+}
+
+
+/* OFFICER */
+
+.officer{
+    text-align:center;
+    margin-top:25px;
+    font-weight:bold;
+    line-height:1.55;
+}
+
+.officer .english{
+    margin-top:5px;
+}
+
+
+/* CONTENT */
+
+.content{
+    margin-top:25px;
+    font-size:17px;
+    line-height:2;
+    text-align:justify;
+}
+
+.content p{
+    margin:8px 0;
+}
+
+
+/* NAME */
+
+.name{
+    font-weight:bold;
+}
+
+
+/* ENGLISH */
+
+.english-content{
+    font-size:15.5px;
+    line-height:1.8;
+    text-align:justify;
+}
+
+
+/* SIGNATURE */
+
+.signature-area{
+    margin-top:45px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+}
+
+.place{
+    font-size:16px;
+    line-height:1.8;
+}
+
+.signature{
+    text-align:center;
+    font-weight:bold;
+    line-height:1.7;
+}
+
+
+/* FOOTER */
+
+.footer-line{
+    border-top:1px solid #777;
+    margin-top:25px;
+    padding-top:8px;
+    text-align:center;
+    font-size:11px;
+    color:#555;
+}
+
+
+/* PRINT */
+
+@media print{
+
+    body{
+        background:white;
+    }
+
+    .topbar{
+        display:none;
+    }
+
+    .a4{
+        margin:0;
+        width:210mm;
+        min-height:297mm;
+        box-shadow:none;
+        padding:18mm 18mm 15mm 18mm;
+    }
+
+    @page{
+        size:A4;
+        margin:0;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- TOP BAR -->
+
+<div class="topbar">
+
+    <h2>
+        रहिवासी दाखला
+    </h2>
+
+    <div class="top-buttons">
+
+        <button
+            class="dashboard"
+            onclick="goDashboard()">
+            ← Dashboard
+        </button>
+
+        <button
+            class="print"
+            onclick="window.print()">
+            🖨️ Print
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- A4 CERTIFICATE -->
+
+<div class="a4">
+
+
+    <!-- OFFICE -->
+
+    <div class="office-title">
+
+        <div class="marathi">
+            ग्रामपंचायत कार्यालय आडगाव
+            ता. भोकरदन जि. जालना
+        </div>
+
+        <div class="english">
+            Grampanchayat Office Adgaon
+            Tal. Bhokardan Dist. Jalna
+        </div>
+
+    </div>
+
+
+    <div class="line"></div>
+
+
+
+    <!-- TITLE -->
+
+    <div class="certificate-title">
+
+        <div class="mr">
+            रहिवासी दाखला
+        </div>
+
+        <div class="en">
+            Residence Certificate
+        </div>
+
+    </div>
+
+
+
+    <!-- NUMBER AND DATE -->
+
+    <div class="number-area">
+
+        <div>
+            दाखला क्रमांक :
+            <span id="certificateNumber"></span>
+        </div>
+
+        <div style="text-align:right;">
+            दिनांक :-
+            <span id="certificateDate"></span>
+        </div>
+
+    </div>
+
+
+    <div class="number-area">
+
+        <div>
+            Certificate Number :
+            <span id="certificateNumberEnglish"></span>
+        </div>
+
+        <div style="text-align:right;">
+            Date :-
+            <span id="certificateDateEnglish"></span>
+        </div>
+
+    </div>
+
+
+
+    <!-- OFFICER -->
+
+    <div class="officer">
+
+        <div>
+            सरपंच / ग्रामसेवक / ग्रामविकास अधिकारी
+            ग्रामपंचायत आडगाव
+            ता. भोकरदन जि. जालना
+        </div>
+
+        <div class="english">
+            Sarpanch / Gramsevak / Village
+            Development Officer
+            Grampanchayat Adgaon
+            Tal. Bhokardan Dist. Jalna
+        </div>
+
+    </div>
+
+
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+        <p>
+
+            यांच्याकडून दाखला देण्यात येतो कि
+            <span class="name" id="marathiName"></span>
+
+            आधार क्र.
+            <span class="name" id="aadhaar"></span>
+
+            हे ग्रामपंचायत आडगाव हद्दीतील मौजे
+            <span class="name" id="village"></span>
+
+            ता.
+            <span class="name" id="taluka"></span>,
+
+            जि.
+            <span class="name" id="district"></span>
+
+            महाराष्ट्र -
+            <span class="name" id="pincode"></span>
+
+            येथील
+            <span class="name" id="residentType"></span>
+            रहिवासी आहेत.
+
+        </p>
+
+
+
+        <p class="english-content">
+
+            This is to certify that
+            <b id="englishName"></b>
+
+            UID / EID No.
+            <b id="aadhaarEnglish"></b>
+
+            is a resident of Grampanchayat
+            <b>Adgaon</b>,
+
+            Village
+            <b id="villageEnglish"></b>,
+
+            Tal.
+            <b id="talukaEnglish"></b>,
+
+            Dist.
+            <b id="districtEnglish"></b>,
+
+            Maharashtra -
+            <b id="pincodeEnglish"></b>.
+
+        </p>
+
+
+
+        <p>
+
+            सदर दाखला त्यांचे विनंती अर्जानुसार,
+            रहिवासी पुराव्याची पडताळणी व स्थानिक
+            चौकशीच्या आधारे देण्यात येत आहे.
+
+        </p>
+
+
+
+        <p class="english-content">
+
+            Certificate is issued on request of the applicant,
+            after resident verification and local level enquiry.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- SIGNATURE -->
+
+    <div class="signature-area">
+
+        <div class="place">
+
+            ठिकाण : आडगाव
+
+            <br>
+
+            Place : Adgaon
+
+        </div>
+
+
+        <div class="signature">
+
+            सही व शिक्का
+
+            <br>
+
+            Signature with Stamp
+
+            <br><br>
+
+            सरपंच / ग्रामसेवक /
+            ग्रामविकास अधिकारी
+
+            <br>
+
+            Sarpanch / Gramsevak /
+            Village Development Officer
+
+        </div>
+
+    </div>
+
+
+
+    <div class="footer-line">
+
+        Grampanchayat Office Adgaon |
+        Tal. Bhokardan, Dist. Jalna |
+        Maharashtra - 431112
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* LOGIN CHECK */
+
+if(sessionStorage.getItem("loggedIn") !== "true"){
+
+    window.location.href="index.html";
+
+}
+
+
+/* GET SAVED DATA */
+
+const saved =
+    localStorage.getItem("currentCertificate");
+
+
+if(!saved){
+
+    alert("Certificate ची माहिती उपलब्ध नाही.");
+
+    window.location.href="form.html";
+
+}
+
+
+const data =
+    JSON.parse(saved);
+
+
+
+/* DATE FORMAT */
+
+function formatDate(date){
+
+    if(!date){
+        return "";
+    }
+
+    const parts =
+        date.split("-");
+
+    if(parts.length !== 3){
+        return date;
+    }
+
+    return parts[2] + "-" +
+           parts[1] + "-" +
+           parts[0];
+
+}
+
+
+/* FILL DATA */
+
+document.getElementById(
+    "certificateNumber"
+).textContent =
+data.certificateNumber;
+
+
+document.getElementById(
+    "certificateNumberEnglish"
+).textContent =
+data.certificateNumber;
+
+
+document.getElementById(
+    "certificateDate"
+).textContent =
+formatDate(data.certificateDate);
+
+
+document.getElementById(
+    "certificateDateEnglish"
+).textContent =
+formatDate(data.certificateDate);
+
+
+document.getElementById(
+    "marathiName"
+).textContent =
+data.marathiName;
+
+
+document.getElementById(
+    "englishName"
+).textContent =
+data.englishName || data.marathiName;
+
+
+document.getElementById(
+    "aadhaar"
+).textContent =
+data.aadhaar;
+
+
+document.getElementById(
+    "aadhaarEnglish"
+).textContent =
+data.aadhaar;
+
+
+document.getElementById(
+    "village"
+).textContent =
+data.village;
+
+
+document.getElementById(
+    "villageEnglish"
+).textContent =
+data.village;
+
+
+document.getElementById(
+    "taluka"
+).textContent =
+data.taluka;
+
+
+document.getElementById(
+    "talukaEnglish"
+).textContent =
+data.taluka;
+
+
+document.getElementById(
+    "district"
+).textContent =
+data.district;
+
+
+document.getElementById(
+    "districtEnglish"
+).textContent =
+data.district;
+
+
+document.getElementById(
+    "pincode"
+).textContent =
+data.pincode;
+
+
+document.getElementById(
+    "pincodeEnglish"
+).textContent =
+data.pincode;
+
+
+document.getElementById(
+    "residentType"
+).textContent =
+data.residentType;
+
+
+
+/* DASHBOARD */
+
+function goDashboard(){
+
+    window.location.href =
+    "dashboard.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
