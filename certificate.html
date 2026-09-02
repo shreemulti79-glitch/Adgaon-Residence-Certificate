@@ -11,9 +11,9 @@
 
 <style>
 
-/* =========================
+/* =========================================
    BASIC
-========================= */
+========================================= */
 
 *{
     box-sizing:border-box;
@@ -36,9 +36,9 @@ body{
 }
 
 
-/* =========================
+/* =========================================
    TOP BAR
-========================= */
+========================================= */
 
 .topbar{
     background:#0d47a1;
@@ -63,6 +63,7 @@ body{
 
 .top-buttons button{
     border:0;
+
     padding:8px 15px;
 
     border-radius:5px;
@@ -70,6 +71,7 @@ body{
     cursor:pointer;
 
     font-weight:bold;
+
     font-size:14px;
 }
 
@@ -84,88 +86,61 @@ body{
 }
 
 
-/* =========================
+/* =========================================
    A4 CERTIFICATE
-========================= */
+========================================= */
 
 .a4{
 
     width:210mm;
     min-height:297mm;
 
-    margin:20px auto;
+    margin:18px auto;
 
-    background:#ffffff;
+    background:white;
 
-    /* बाहेरील Border */
-    border:1.5px solid #111;
+    border:1px solid #111;
 
-    position:relative;
-
-    box-shadow:0 0 8px rgba(0,0,0,.20);
+    box-shadow:0 0 10px rgba(0,0,0,.25);
 
     overflow:hidden;
 }
 
 
-/* =========================
-   INNER BORDER
-========================= */
-
-.a4::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:3mm;
-    left:3mm;
-    right:3mm;
-    bottom:3mm;
-
-    border:1px solid #777;
-
-    pointer-events:none;
-}
-
-
-/* =========================
+/* =========================================
    HEADER
-========================= */
+========================================= */
 
 .header{
 
     text-align:center;
 
-    padding-top:3mm;
-
-    position:relative;
-
-    z-index:2;
+    padding-top:2mm;
 }
 
 
-/* =========================
-   GOVERNMENT LOGO
-========================= */
+/* =========================================
+   LOGO
+========================================= */
 
 .logo{
 
-    width:25mm;
-    height:25mm;
+    width:30mm;
+    height:27mm;
 
-    margin:0 auto 1mm;
+    margin:0 auto;
 
     display:flex;
 
-    align-items:center;
+    align-items:flex-start;
+
     justify-content:center;
 }
 
 .logo img{
 
-    width:22mm;
-    height:22mm;
+    width:25mm;
+    height:25mm;
 
     object-fit:contain;
 
@@ -173,38 +148,40 @@ body{
 }
 
 
-/* =========================
+/* =========================================
    OFFICE NAME
-========================= */
+========================================= */
 
 .office-marathi{
 
     font-size:14px;
 
-    font-weight:500;
+    font-weight:normal;
 
     line-height:1.3;
+
+    margin-top:0;
 }
 
 .office-english{
 
     font-family:Arial,sans-serif;
 
-    font-size:12.5px;
+    font-size:13px;
 
     line-height:1.3;
 
-    margin-top:1px;
+    margin-top:0;
 }
 
 
-/* =========================
+/* =========================================
    TITLE BOX
-========================= */
+========================================= */
 
 .title-box{
 
-    margin-top:2.5mm;
+    margin-top:2mm;
 
     background:#c6c6c6;
 
@@ -214,100 +191,93 @@ body{
 
     text-align:center;
 
-    padding:3px 0 4px;
-
-    position:relative;
-
-    z-index:2;
+    padding:2px 0 3px;
 }
 
 .title-marathi{
 
     font-size:15px;
 
-    font-weight:500;
-
-    line-height:1.25;
+    line-height:1.2;
 }
 
 .title-english{
 
     font-family:Arial,sans-serif;
 
-    font-size:12px;
+    font-size:13px;
 
-    line-height:1.25;
+    line-height:1.2;
 
-    margin-top:1px;
+    margin-top:0;
 }
 
 
-/* =========================
-   CERTIFICATE NUMBER / DATE
-========================= */
+/* =========================================
+   NUMBER / DATE
+========================================= */
 
 .info-area{
 
-    padding:3mm 7mm 0;
+    padding:4mm 2mm 0;
 
-    font-size:11px;
+    font-size:12px;
 
     display:flex;
 
     justify-content:space-between;
 
-    position:relative;
-
-    z-index:2;
+    align-items:center;
 }
 
 .info-left{
+
     text-align:left;
 }
 
 .info-right{
+
     text-align:right;
 }
 
 
+/* =========================================
+   ENGLISH NUMBER / DATE
+========================================= */
+
 .info-english{
 
-    padding:2mm 7mm 0;
+    padding:3mm 2mm 0;
 
     font-family:Arial,sans-serif;
 
-    font-size:10.5px;
+    font-size:12px;
 
     display:flex;
 
     justify-content:space-between;
 
-    position:relative;
-
-    z-index:2;
+    align-items:center;
 }
 
 
-/* =========================
+/* =========================================
    OFFICER
-========================= */
+========================================= */
 
 .officer{
 
-    margin-top:7mm;
+    margin-top:8mm;
 
-    padding:0 7mm;
+    padding:0 2mm;
 
-    font-size:11px;
+    font-size:12px;
 
-    line-height:1.45;
-
-    position:relative;
-
-    z-index:2;
+    line-height:1.5;
 }
 
 .officer-marathi{
+
     text-align:left;
 }
 
@@ -321,30 +291,26 @@ body{
 }
 
 
-/* =========================
+/* =========================================
    MAIN CONTENT
-========================= */
+========================================= */
 
 .content{
 
-    padding:0 7mm;
+    padding:0 2mm;
 
-    margin-top:5mm;
+    margin-top:7mm;
 
-    font-size:11.5px;
+    font-size:13px;
 
-    line-height:1.75;
+    line-height:1.8;
 
     text-align:left;
-
-    position:relative;
-
-    z-index:2;
 }
 
 .content p{
 
-    margin:0 0 4mm 0;
+    margin:0 0 5mm 0;
 }
 
 .bold{
@@ -353,76 +319,110 @@ body{
 }
 
 
-/* =========================
+/* =========================================
    ENGLISH CONTENT
-========================= */
+========================================= */
 
 .english-content{
 
     font-family:Arial,sans-serif;
 
-    font-size:10.8px;
+    font-size:12.5px;
 
-    line-height:1.6;
+    line-height:1.65;
 
     margin-top:1mm;
 }
 
 
-/* =========================
+/* =========================================
    VERIFICATION
-========================= */
+========================================= */
 
 .verification-marathi{
 
-    margin-top:3mm;
+    margin-top:5mm;
 
-    font-size:11px;
+    font-size:12.5px;
 
-    line-height:1.65;
+    line-height:1.8;
 }
 
 .verification-english{
 
     font-family:Arial,sans-serif;
 
-    font-size:10.5px;
+    font-size:12px;
 
-    line-height:1.55;
+    line-height:1.6;
 
-    margin-top:3mm;
+    margin-top:4mm;
 }
 
 
-/* =========================
-   SIGNATURE AREA
-========================= */
+/* =========================================
+   SIGNATURE SECTION
+========================================= */
 
 .signature-area{
 
-    margin-top:16mm;
+    margin-top:13mm;
 
-    padding:0 7mm;
+    padding:0 2mm;
+}
+
+
+/* =========================================
+   GRAY SIGNATURE BAR
+========================================= */
+
+.signature-bar{
+
+    height:8mm;
+
+    background:#c6c6c6;
+
+    border-top:1px solid #aaa;
+
+    border-bottom:1px solid #aaa;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    padding-right:20mm;
+
+    font-size:12px;
+
+    font-weight:normal;
+}
+
+
+/* =========================================
+   SIGNATURE BOTTOM
+========================================= */
+
+.signature-bottom{
 
     display:flex;
 
     justify-content:space-between;
 
-    align-items:flex-end;
+    align-items:flex-start;
 
-    position:relative;
-
-    z-index:2;
+    padding-top:2mm;
 }
 
 
-/* =========================
+/* =========================================
    PLACE
-========================= */
+========================================= */
 
 .place{
 
-    font-size:11px;
+    font-size:12px;
 
     line-height:2;
 
@@ -430,15 +430,15 @@ body{
 }
 
 
-/* =========================
+/* =========================================
    SIGNATURE
-========================= */
+========================================= */
 
 .signature{
 
-    font-size:11px;
+    font-size:12px;
 
-    line-height:1.65;
+    line-height:1.7;
 
     text-align:center;
 
@@ -446,27 +446,9 @@ body{
 }
 
 
-/* =========================
-   SIGNATURE TOP LINE
-========================= */
-
-.signature::before{
-
-    content:"";
-
-    display:block;
-
-    width:100%;
-
-    border-top:1px solid #777;
-
-    margin-bottom:3mm;
-}
-
-
-/* =========================
+/* =========================================
    PRINT
-========================= */
+========================================= */
 
 @media print{
 
@@ -493,16 +475,13 @@ body{
 
         margin:0;
 
-        border:1.5px solid #111;
+        border:1px solid #111;
 
         box-shadow:none;
 
+        overflow:hidden;
+
         page-break-after:always;
-    }
-
-    .a4::before{
-
-        border:1px solid #777;
     }
 
     @page{
@@ -514,11 +493,16 @@ body{
 }
 
 
-/* =========================
+/* =========================================
    MOBILE
-========================= */
+========================================= */
 
 @media screen and (max-width:800px){
+
+    body{
+
+        overflow-x:hidden;
+    }
 
     .a4{
 
@@ -526,9 +510,12 @@ body{
 
         transform:scale(.75);
 
+        margin-left:0;
+
+        margin-top:10px;
+
         margin-bottom:-70mm;
     }
-
 }
 
 </style>
@@ -539,9 +526,9 @@ body{
 <body>
 
 
-<!-- =========================
+<!-- =========================================
      TOP BAR
-========================= -->
+========================================= -->
 
 <div class="topbar">
 
@@ -559,7 +546,6 @@ body{
 
         </button>
 
-
         <button
             class="print"
             onclick="window.print()">
@@ -574,16 +560,16 @@ body{
 
 
 
-<!-- =========================
+<!-- =========================================
      A4 CERTIFICATE
-========================= -->
+========================================= -->
 
 <div class="a4">
 
 
-    <!-- =========================
+    <!-- =====================================
          HEADER
-    ========================= -->
+    ====================================== -->
 
     <div class="header">
 
@@ -620,9 +606,9 @@ body{
 
 
 
-    <!-- =========================
+    <!-- =====================================
          TITLE
-    ========================= -->
+    ====================================== -->
 
     <div class="title-box">
 
@@ -642,9 +628,9 @@ body{
 
 
 
-    <!-- =========================
-         NUMBER / DATE
-    ========================= -->
+    <!-- =====================================
+         CERTIFICATE NUMBER / DATE
+    ====================================== -->
 
     <div class="info-area">
 
@@ -657,7 +643,7 @@ body{
 
         <div class="info-right">
 
-            दिनांक :-
+            दिनांक :- 
             <span id="certificateDate"></span>
 
         </div>
@@ -665,6 +651,8 @@ body{
     </div>
 
 
+
+    <!-- ENGLISH NUMBER / DATE -->
 
     <div class="info-english">
 
@@ -677,7 +665,7 @@ body{
 
         <div>
 
-            Date :-
+            Date :- 
             <span id="certificateDateEnglish"></span>
 
         </div>
@@ -686,9 +674,9 @@ body{
 
 
 
-    <!-- =========================
+    <!-- =====================================
          OFFICER
-    ========================= -->
+    ====================================== -->
 
     <div class="officer">
 
@@ -711,9 +699,9 @@ body{
 
 
 
-    <!-- =========================
+    <!-- =====================================
          MAIN CONTENT
-    ========================= -->
+    ====================================== -->
 
     <div class="content">
 
@@ -777,7 +765,9 @@ body{
 
 
 
-        <!-- ENGLISH -->
+        <!-- =================================
+             ENGLISH
+        ================================== -->
 
         <p class="english-content">
 
@@ -813,7 +803,9 @@ body{
 
 
 
-        <!-- VERIFICATION MARATHI -->
+        <!-- =================================
+             VERIFICATION MARATHI
+        ================================== -->
 
         <p class="verification-marathi">
 
@@ -825,7 +817,9 @@ body{
 
 
 
-        <!-- VERIFICATION ENGLISH -->
+        <!-- =================================
+             VERIFICATION ENGLISH
+        ================================== -->
 
         <p class="verification-english">
 
@@ -839,46 +833,58 @@ body{
 
 
 
-    <!-- =========================
-         SIGNATURE
-    ========================= -->
+    <!-- =====================================
+         SIGNATURE AREA
+    ====================================== -->
 
     <div class="signature-area">
 
 
-        <!-- PLACE -->
+        <!-- GRAY BAR -->
 
-        <div class="place">
-
-            ठिकाण : आडगाव
-
-            <br>
-
-            Place : Adgaon
-
-        </div>
-
-
-        <!-- SIGNATURE -->
-
-        <div class="signature">
+        <div class="signature-bar">
 
             सही व शिक्का
 
-            <br>
-
-            Signature with Stamp
-
-            <br><br>
-
-            सरपंच/ग्रामसेवक/ग्रामविकास अधिकारी
-
-            <br>
-
-            Sarpanch/Gramsevak/Village Development Officer
-
         </div>
 
+
+        <!-- BOTTOM -->
+
+        <div class="signature-bottom">
+
+
+            <!-- PLACE -->
+
+            <div class="place">
+
+                ठिकाण : आडगाव
+
+                <br>
+
+                Place : Adgaon
+
+            </div>
+
+
+            <!-- SIGNATURE -->
+
+            <div class="signature">
+
+                Signature with Stamp
+
+                <br><br>
+
+                सरपंच/ग्रामसेवक/ग्रामविकास अधिकारी
+
+                <br>
+
+                Sarpanch/Gramsevak/Village Development Officer
+
+            </div>
+
+
+        </div>
 
     </div>
 
@@ -890,20 +896,22 @@ body{
 <script>
 
 
-/* =========================
+/* =========================================
    LOGIN CHECK
-========================= */
+========================================= */
 
-if(sessionStorage.getItem("loggedIn") !== "true"){
+if(
+    sessionStorage.getItem("loggedIn") !== "true"
+){
 
     window.location.href="index.html";
 
 }
 
 
-/* =========================
+/* =========================================
    GET SAVED DATA
-========================= */
+========================================= */
 
 const saved =
     localStorage.getItem("currentCertificate");
@@ -922,9 +930,10 @@ const data =
     JSON.parse(saved);
 
 
-/* =========================
+
+/* =========================================
    DATE FORMAT
-========================= */
+========================================= */
 
 function formatDate(date){
 
@@ -952,9 +961,10 @@ function formatDate(date){
 }
 
 
-/* =========================
+
+/* =========================================
    CERTIFICATE NUMBER
-========================= */
+========================================= */
 
 document.getElementById(
     "certificateNumber"
@@ -968,9 +978,10 @@ document.getElementById(
     data.certificateNumber || "";
 
 
-/* =========================
+
+/* =========================================
    DATE
-========================= */
+========================================= */
 
 document.getElementById(
     "certificateDate"
@@ -984,15 +995,21 @@ document.getElementById(
     formatDate(data.certificateDate);
 
 
-/* =========================
-   NAME
-========================= */
+
+/* =========================================
+   MARATHI NAME
+========================================= */
 
 document.getElementById(
     "marathiName"
 ).textContent =
     data.marathiName || "";
 
+
+
+/* =========================================
+   ENGLISH NAME
+========================================= */
 
 document.getElementById(
     "englishName"
@@ -1002,9 +1019,10 @@ document.getElementById(
     "";
 
 
-/* =========================
+
+/* =========================================
    AADHAAR
-========================= */
+========================================= */
 
 document.getElementById(
     "aadhaar"
@@ -1018,9 +1036,10 @@ document.getElementById(
     data.aadhaar || "";
 
 
-/* =========================
+
+/* =========================================
    VILLAGE
-========================= */
+========================================= */
 
 document.getElementById(
     "village"
@@ -1034,9 +1053,10 @@ document.getElementById(
     data.village || "Adgaon";
 
 
-/* =========================
+
+/* =========================================
    TALUKA
-========================= */
+========================================= */
 
 document.getElementById(
     "taluka"
@@ -1050,9 +1070,10 @@ document.getElementById(
     data.taluka || "Bhokardan";
 
 
-/* =========================
+
+/* =========================================
    DISTRICT
-========================= */
+========================================= */
 
 document.getElementById(
     "district"
@@ -1066,9 +1087,10 @@ document.getElementById(
     data.district || "Jalna";
 
 
-/* =========================
+
+/* =========================================
    PINCODE
-========================= */
+========================================= */
 
 document.getElementById(
     "pincode"
@@ -1082,9 +1104,10 @@ document.getElementById(
     data.pincode || "431112";
 
 
-/* =========================
+
+/* =========================================
    RESIDENT TYPE
-========================= */
+========================================= */
 
 document.getElementById(
     "residentType"
@@ -1092,9 +1115,10 @@ document.getElementById(
     data.residentType || "कायम";
 
 
-/* =========================
+
+/* =========================================
    DASHBOARD
-========================= */
+========================================= */
 
 function goDashboard(){
 
