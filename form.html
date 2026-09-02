@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="mr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>नवीन रहिवासी दाखला</title>
 
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -17,8 +22,6 @@
             background: #f3f6fa;
             color: #222;
         }
-
-        /* Header */
 
         .header {
             background: #0d47a1;
@@ -48,8 +51,6 @@
             font-weight: bold;
         }
 
-        /* Container */
-
         .container {
             max-width: 900px;
             margin: 30px auto;
@@ -77,8 +78,6 @@
             color: #777;
             margin: 0;
         }
-
-        /* Form */
 
         .row {
             display: grid;
@@ -128,8 +127,6 @@
             margin-bottom: 18px;
         }
 
-        /* Buttons */
-
         .buttons {
             display: flex;
             gap: 12px;
@@ -164,8 +161,6 @@
             background: #424242;
         }
 
-        /* Message */
-
         #message {
             display: none;
             margin-top: 20px;
@@ -180,7 +175,15 @@
             color: #2e7d32;
         }
 
-        /* Mobile */
+        .error {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .loading {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
 
         @media (max-width: 650px) {
 
@@ -207,7 +210,9 @@
                 width: 100%;
             }
         }
+
     </style>
+
 </head>
 
 <body>
@@ -247,6 +252,7 @@
 
         <form id="certificateForm">
 
+
             <!-- Certificate Number + Date -->
 
             <div class="row">
@@ -284,7 +290,7 @@
             </div>
 
 
-            <!-- Name -->
+            <!-- Marathi Name -->
 
             <div class="full">
 
@@ -415,7 +421,7 @@
             </div>
 
 
-            <!-- Pincode -->
+            <!-- Pincode / Resident Type -->
 
             <div class="row">
 
@@ -500,13 +506,16 @@
 
                 <button
                     type="submit"
-                    class="save">
+                    class="save"
+                    id="saveButton"
+                >
                     💾 Save & Continue
                 </button>
 
                 <button
                     type="reset"
-                    class="reset">
+                    class="reset"
+                >
                     Reset
                 </button>
 
@@ -514,6 +523,7 @@
 
 
             <div id="message"></div>
+
 
         </form>
 
@@ -524,172 +534,472 @@
 
 <script>
 
-    /* Login Check */
 
-    if (sessionStorage.getItem("loggedIn") !== "true") {
+/* =====================================================
+   LOGIN CHECK
+===================================================== */
 
-        window.location.href = "index.html";
+if (sessionStorage.getItem("loggedIn") !== "true") {
 
-    }
+    window.location.href = "index.html";
 
-
-    /* Today's Date */
-
-    const today = new Date();
-
-    const yyyy = today.getFullYear();
-
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-
-    const dd = String(today.getDate()).padStart(2, "0");
-
-    document.getElementById("certificateDate").value =
-        `${yyyy}-${mm}-${dd}`;
+}
 
 
-    /* Certificate Number */
+/* =====================================================
+   SUPABASE SETTINGS
+===================================================== */
 
-    function generateCertificateNumber() {
+/*
+   खाली तुमची माहिती टाका.
 
-        const random =
-            Math.floor(100000000000 + Math.random() * 900000000000);
+   SUPABASE_URL =
+   तुमचा Project URL
 
-        return random.toString();
+   SUPABASE_KEY =
+   तुमचा Publishable / Anon Key
 
-    }
+*/
 
-    document.getElementById("certificateNumber").value =
-        generateCertificateNumber();
+const SUPABASE_URL = "YOUR_PROJECT_URL";
+
+const SUPABASE_KEY = "YOUR_PUBLISHABLE_KEY";
 
 
-    /* Aadhaar Validation */
+/* Supabase Connection */
 
-    document.getElementById("aadhaar").addEventListener(
-        "input",
-        function() {
-
-            this.value = this.value.replace(/\D/g, "");
-
-        }
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
     );
 
 
-    /* Pincode Validation */
+/* =====================================================
+   TODAY DATE
+===================================================== */
 
-    document.getElementById("pincode").addEventListener(
-        "input",
-        function() {
+const today = new Date();
 
-            this.value = this.value.replace(/\D/g, "");
+const yyyy =
+    today.getFullYear();
+
+const mm =
+    String(today.getMonth() + 1)
+    .padStart(2, "0");
+
+const dd =
+    String(today.getDate())
+    .padStart(2, "0");
+
+
+document.getElementById("certificateDate").value =
+    `${yyyy}-${mm}-${dd}`;
+
+
+/* =====================================================
+   CERTIFICATE NUMBER
+===================================================== */
+
+function generateCertificateNumber() {
+
+    const random =
+        Math.floor(
+            100000000000 +
+            Math.random() * 900000000000
+        );
+
+    return random.toString();
+
+}
+
+
+document.getElementById("certificateNumber").value =
+    generateCertificateNumber();
+
+
+/* =====================================================
+   AADHAAR VALIDATION
+===================================================== */
+
+document.getElementById("aadhaar")
+.addEventListener(
+    "input",
+    function() {
+
+        this.value =
+            this.value.replace(/\D/g, "");
+
+    }
+);
+
+
+/* =====================================================
+   PINCODE VALIDATION
+===================================================== */
+
+document.getElementById("pincode")
+.addEventListener(
+    "input",
+    function() {
+
+        this.value =
+            this.value.replace(/\D/g, "");
+
+    }
+);
+
+
+/* =====================================================
+   SUBMIT
+===================================================== */
+
+document.getElementById("certificateForm")
+.addEventListener(
+    "submit",
+    async function(e) {
+
+        e.preventDefault();
+
+
+        /* Get values */
+
+        const certificateNumber =
+            document.getElementById(
+                "certificateNumber"
+            ).value.trim();
+
+
+        const certificateDate =
+            document.getElementById(
+                "certificateDate"
+            ).value;
+
+
+        const marathiName =
+            document.getElementById(
+                "marathiName"
+            ).value.trim();
+
+
+        const englishName =
+            document.getElementById(
+                "englishName"
+            ).value.trim();
+
+
+        const aadhaar =
+            document.getElementById(
+                "aadhaar"
+            ).value.trim();
+
+
+        const village =
+            document.getElementById(
+                "village"
+            ).value.trim();
+
+
+        const taluka =
+            document.getElementById(
+                "taluka"
+            ).value.trim();
+
+
+        const district =
+            document.getElementById(
+                "district"
+            ).value.trim();
+
+
+        const state =
+            document.getElementById(
+                "state"
+            ).value.trim();
+
+
+        const pincode =
+            document.getElementById(
+                "pincode"
+            ).value.trim();
+
+
+        const residentType =
+            document.getElementById(
+                "residentType"
+            ).value;
+
+
+        const place =
+            document.getElementById(
+                "place"
+            ).value.trim();
+
+
+        const verification =
+            document.getElementById(
+                "verification"
+            ).value.trim();
+
+
+        /* =================================================
+           VALIDATION
+        ================================================= */
+
+        if (aadhaar.length !== 12) {
+
+            alert(
+                "कृपया 12 अंकी आधार क्रमांक टाका."
+            );
+
+            return;
 
         }
-    );
 
 
-    /* Submit */
+        if (pincode.length !== 6) {
 
-    document.getElementById("certificateForm").addEventListener(
-        "submit",
-        function(e) {
+            alert(
+                "कृपया 6 अंकी पिनकोड टाका."
+            );
 
-            e.preventDefault();
+            return;
 
-            const aadhaar =
-                document.getElementById("aadhaar").value;
-
-            const pincode =
-                document.getElementById("pincode").value;
+        }
 
 
-            if (aadhaar.length !== 12) {
+        if (!residentType) {
 
-                alert("कृपया 12 अंकी आधार क्रमांक टाका.");
+            alert(
+                "कृपया रहिवासी प्रकार निवडा."
+            );
+
+            return;
+
+        }
+
+
+        /* =================================================
+           SHOW LOADING
+        ================================================= */
+
+        const message =
+            document.getElementById("message");
+
+
+        const saveButton =
+            document.getElementById("saveButton");
+
+
+        message.className = "loading";
+
+        message.style.display = "block";
+
+        message.innerHTML =
+            "⏳ माहिती Save होत आहे...";
+
+
+        saveButton.disabled = true;
+
+        saveButton.innerText =
+            "Saving...";
+
+
+        /* =================================================
+           DATA
+        ================================================= */
+
+        const data = {
+
+            certificate_number:
+                certificateNumber,
+
+            certificate_date:
+                certificateDate,
+
+            marathi_name:
+                marathiName,
+
+            english_name:
+                englishName,
+
+            aadhaar:
+                aadhaar,
+
+            village:
+                village,
+
+            taluka:
+                taluka,
+
+            district:
+                district,
+
+            state:
+                state,
+
+            pincode:
+                pincode,
+
+            resident_type:
+                residentType,
+
+            place:
+                place,
+
+            verification:
+                verification
+
+        };
+
+
+        /* =================================================
+           SAVE TO SUPABASE
+        ================================================= */
+
+        try {
+
+            const {
+                data: savedData,
+                error
+            } = await supabaseClient
+                .from("certificates")
+                .insert([data])
+                .select()
+                .single();
+
+
+            /* Error */
+
+            if (error) {
+
+                console.error(
+                    "Supabase Error:",
+                    error
+                );
+
+                message.className =
+                    "error";
+
+                message.innerHTML =
+                    "❌ माहिती Save झाली नाही.<br><br>" +
+                    error.message;
+
+                saveButton.disabled =
+                    false;
+
+                saveButton.innerText =
+                    "💾 Save & Continue";
 
                 return;
 
             }
 
 
-            if (pincode.length !== 6) {
+            /* =================================================
+               LOCAL STORAGE
+            ================================================= */
 
-                alert("कृपया 6 अंकी पिनकोड टाका.");
-
-                return;
-
-            }
-
-
-            /* Temporary local save */
-
-            const data = {
+            const localData = {
 
                 certificateNumber:
-                    document.getElementById("certificateNumber").value,
+                    savedData.certificate_number,
 
                 certificateDate:
-                    document.getElementById("certificateDate").value,
+                    savedData.certificate_date,
 
                 marathiName:
-                    document.getElementById("marathiName").value,
+                    savedData.marathi_name,
 
                 englishName:
-                    document.getElementById("englishName").value,
+                    savedData.english_name,
 
                 aadhaar:
-                    aadhaar,
+                    savedData.aadhaar,
 
                 village:
-                    document.getElementById("village").value,
+                    savedData.village,
 
                 taluka:
-                    document.getElementById("taluka").value,
+                    savedData.taluka,
 
                 district:
-                    document.getElementById("district").value,
+                    savedData.district,
 
                 state:
-                    document.getElementById("state").value,
+                    savedData.state,
 
                 pincode:
-                    pincode,
+                    savedData.pincode,
 
                 residentType:
-                    document.getElementById("residentType").value,
+                    savedData.resident_type,
 
                 place:
-                    document.getElementById("place").value,
+                    savedData.place,
 
                 verification:
-                    document.getElementById("verification").value
+                    savedData.verification
 
             };
 
 
             localStorage.setItem(
                 "currentCertificate",
-                JSON.stringify(data)
+                JSON.stringify(localData)
             );
 
 
-            const message =
-                document.getElementById("message");
+            /* =================================================
+               SUCCESS
+            ================================================= */
 
-            message.className = "success";
+            message.className =
+                "success";
 
-            message.style.display = "block";
+            message.innerHTML =
+                "✅ माहिती Successfully Save झाली!<br>" +
+                "Certificate तयार होत आहे...";
 
-          message.innerHTML =
-    "✅ माहिती Save झाली! Certificate तयार होत आहे...";
 
-setTimeout(function() {
+            setTimeout(function() {
 
-    window.location.href = "certificate.html";
+                window.location.href =
+                    "certificate.html";
 
-}, 500);
+            }, 700);
+
+
+        } catch (error) {
+
+            console.error(
+                "System Error:",
+                error
+            );
+
+            message.className =
+                "error";
+
+            message.style.display =
+                "block";
+
+            message.innerHTML =
+                "❌ System Error आला.";
+
+            saveButton.disabled =
+                false;
+
+            saveButton.innerText =
+                "💾 Save & Continue";
+
         }
-    );
+
+    }
+);
+
 
 </script>
 
 </body>
+
 </html>
