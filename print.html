@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="mr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>दाखला Print</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,"Noto Sans Devanagari",sans-serif;
+    background:#f3f6fa;
+}
+
+.container{
+    width:95%;
+    max-width:900px;
+    margin:30px auto;
+}
+
+.box{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 3px 12px rgba(0,0,0,.12);
+}
+
+h2{
+    text-align:center;
+    color:#0d47a1;
+    margin-top:0;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th,
+td{
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:left;
+}
+
+th{
+    background:#0d47a1;
+    color:white;
+}
+
+button{
+    border:none;
+    padding:9px 15px;
+    border-radius:5px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.print{
+    background:#198754;
+    color:white;
+}
+
+.back{
+    background:#555;
+    color:white;
+    margin-top:20px;
+}
+
+.empty{
+    text-align:center;
+    padding:30px;
+    color:#777;
+}
+
+@media(max-width:650px){
+
+    table{
+        font-size:13px;
+    }
+
+    th,
+    td{
+        padding:8px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+<div class="box">
+
+<h2>🖨️ दाखला Print</h2>
+
+<p>
+तयार केलेले रहिवासी दाखले
+</p>
+
+
+<div id="certificateList"></div>
+
+
+<button
+class="back"
+onclick="location.href='dashboard.html'">
+
+← Dashboard
+
+</button>
+
+
+</div>
+
+</div>
+
+
+
+<script>
+
+
+/* =========================
+   LOGIN CHECK
+========================= */
+
+if(sessionStorage.getItem("loggedIn") !== "true"){
+
+    window.location.href="index.html";
+
+}
+
+
+
+/* =========================
+   LOAD CERTIFICATES
+========================= */
+
+function loadCertificates(){
+
+    const list =
+        document.getElementById("certificateList");
+
+
+    let certificates = [];
+
+    try{
+
+        certificates =
+            JSON.parse(
+                localStorage.getItem("certificates") || "[]"
+            );
+
+    }catch(error){
+
+        certificates = [];
+
+    }
+
+
+    if(!Array.isArray(certificates) ||
+       certificates.length === 0){
+
+        list.innerHTML = `
+        
+        <div class="empty">
+
+            अजून कोणताही दाखला सेव्ह केलेला नाही.
+
+        </div>
+
+        `;
+
+        return;
+
+    }
+
+
+
+    let html = `
+
+    <table>
+
+        <tr>
+
+            <th>अ.क्र.</th>
+
+            <th>दाखला क्रमांक</th>
+
+            <th>दिनांक</th>
+
+            <th>नाव</th>
+
+            <th>Print</th>
+
+        </tr>
+
+    `;
+
+
+
+    certificates.forEach(function(item,index){
+
+        html += `
+
+        <tr>
+
+            <td>
+                ${index + 1}
+            </td>
+
+            <td>
+                ${item.certificateNumber || ""}
+            </td>
+
+            <td>
+                ${item.certificateDate || ""}
+            </td>
+
+            <td>
+                ${item.marathiName || ""}
+            </td>
+
+            <td>
+
+                <button
+                    class="print"
+                    onclick="printCertificate(${index})">
+
+                    🖨️ Print
+
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+
+    html += `</table>`;
+
+
+    list.innerHTML = html;
+
+}
+
+
+
+/* =========================
+   PRINT CERTIFICATE
+========================= */
+
+function printCertificate(index){
+
+    let certificates = [];
+
+    try{
+
+        certificates =
+            JSON.parse(
+                localStorage.getItem("certificates") || "[]"
+            );
+
+    }catch(error){
+
+        certificates = [];
+
+    }
+
+
+    if(!certificates[index]){
+
+        alert("दाखला सापडला नाही.");
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "currentCertificate",
+        JSON.stringify(certificates[index])
+    );
+
+
+    window.location.href =
+        "certificate.html";
+
+}
+
+
+
+/* =========================
+   START
+========================= */
+
+loadCertificates();
+
+
+</script>
+
+
+</body>
+
+</html>
