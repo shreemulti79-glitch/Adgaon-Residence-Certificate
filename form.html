@@ -1,480 +1,541 @@
 <script>
 
-/* =====================================================
-   LOGIN CHECK
-===================================================== */
+document.addEventListener("DOMContentLoaded", function () {
 
-if (sessionStorage.getItem("loggedIn") !== "true") {
-    window.location.href = "index.html";
-}
+    /* =====================================================
+       LOGIN CHECK
+    ===================================================== */
 
-
-/* =====================================================
-   EDIT MODE / NEW MODE
-===================================================== */
-
-let editMode = false;
-let editingCertificateNumber = "";
-
-
-/* =====================================================
-   LOAD CURRENT CERTIFICATE
-===================================================== */
-
-const savedCurrent =
-    localStorage.getItem("currentCertificate");
-
-
-if (savedCurrent) {
-
-    try {
-
-        const data =
-            JSON.parse(savedCurrent);
-
-        /*
-         * जर Search मधून Edit केले असेल
-         * तर जुनी माहिती form मध्ये भरा
-         */
-
-        if (data && data.certificateNumber) {
-
-            editMode = true;
-
-            editingCertificateNumber =
-                String(data.certificateNumber);
-
-            document.getElementById("certificateNumber").value =
-                data.certificateNumber || "";
-
-            document.getElementById("certificateDate").value =
-                data.certificateDate || "";
-
-            document.getElementById("marathiName").value =
-                data.marathiName || "";
-
-            document.getElementById("englishName").value =
-                data.englishName || "";
-
-            document.getElementById("aadhaar").value =
-                data.aadhaar || "";
-
-            document.getElementById("village").value =
-                data.village || "आडगाव";
-
-            document.getElementById("taluka").value =
-                data.taluka || "भोकरदन";
-
-            document.getElementById("district").value =
-                data.district || "जालना";
-
-            document.getElementById("state").value =
-                data.state || "महाराष्ट्र";
-
-            document.getElementById("pincode").value =
-                data.pincode || "431112";
-
-            document.getElementById("residentType").value =
-                data.residentType || "";
-
-            document.getElementById("place").value =
-                data.place || "आडगाव";
-
-            document.getElementById("verification").value =
-                data.verification ||
-                "सदर दाखला त्यांचे विनंती अर्जानुसार, रहिवासी पुराव्याची पडताळणी व स्थानिक चौकशीच्या आधारे देण्यात येत आहे.";
-
-        }
-
-    } catch (error) {
-
-        console.log("Current certificate load error:", error);
-
+    if (sessionStorage.getItem("loggedIn") !== "true") {
+        window.location.href = "index.html";
+        return;
     }
 
-}
+
+    /* =====================================================
+       EDIT MODE / NEW MODE
+    ===================================================== */
+
+    let editMode = false;
+    let editingCertificateNumber = "";
 
 
-/* =====================================================
-   NEW CERTIFICATE
-===================================================== */
+    /* =====================================================
+       LOAD CURRENT CERTIFICATE
+    ===================================================== */
 
-if (!editMode) {
-
-    const today = new Date();
-
-    const yyyy =
-        today.getFullYear();
-
-    const mm =
-        String(today.getMonth() + 1)
-        .padStart(2, "0");
-
-    const dd =
-        String(today.getDate())
-        .padStart(2, "0");
+    const savedCurrent =
+        localStorage.getItem("currentCertificate");
 
 
-    document.getElementById("certificateDate").value =
-        `${yyyy}-${mm}-${dd}`;
+    if (savedCurrent) {
+
+        try {
+
+            const data = JSON.parse(savedCurrent);
+
+            if (data && data.certificateNumber) {
+
+                editMode = true;
+
+                editingCertificateNumber =
+                    String(data.certificateNumber);
 
 
-    function generateCertificateNumber() {
+                document.getElementById("certificateNumber").value =
+                    data.certificateNumber || "";
 
-        const random =
-            Math.floor(
-                100000000000 +
-                Math.random() * 900000000000
+                document.getElementById("certificateDate").value =
+                    data.certificateDate || "";
+
+                document.getElementById("marathiName").value =
+                    data.marathiName || "";
+
+                document.getElementById("englishName").value =
+                    data.englishName || "";
+
+                document.getElementById("aadhaar").value =
+                    data.aadhaar || "";
+
+                document.getElementById("village").value =
+                    data.village || "आडगाव";
+
+                document.getElementById("taluka").value =
+                    data.taluka || "भोकरदन";
+
+                document.getElementById("district").value =
+                    data.district || "जालना";
+
+                document.getElementById("state").value =
+                    data.state || "महाराष्ट्र";
+
+                document.getElementById("pincode").value =
+                    data.pincode || "431112";
+
+                document.getElementById("residentType").value =
+                    data.residentType || "";
+
+                document.getElementById("place").value =
+                    data.place || "आडगाव";
+
+                document.getElementById("verification").value =
+                    data.verification ||
+                    "सदर दाखला त्यांचे विनंती अर्जानुसार, रहिवासी पुराव्याची पडताळणी व स्थानिक चौकशीच्या आधारे देण्यात येत आहे.";
+
+            }
+
+        } catch (error) {
+
+            console.log(
+                "Current certificate load error:",
+                error
             );
 
-        return random.toString();
+        }
 
     }
 
 
-    document.getElementById("certificateNumber").value =
-        generateCertificateNumber();
+    /* =====================================================
+       NEW CERTIFICATE
+    ===================================================== */
 
-}
+    if (!editMode) {
 
+        const today = new Date();
 
-/* =====================================================
-   AADHAAR VALIDATION
-===================================================== */
+        const yyyy =
+            today.getFullYear();
 
-document.getElementById("aadhaar")
-.addEventListener("input", function() {
+        const mm =
+            String(today.getMonth() + 1)
+            .padStart(2, "0");
 
-    this.value =
-        this.value.replace(/\D/g, "");
-
-});
-
-
-/* =====================================================
-   PINCODE VALIDATION
-===================================================== */
-
-document.getElementById("pincode")
-.addEventListener("input", function() {
-
-    this.value =
-        this.value.replace(/\D/g, "");
-
-});
+        const dd =
+            String(today.getDate())
+            .padStart(2, "0");
 
 
-/* =====================================================
-   SAVE / UPDATE
-===================================================== */
-
-document.getElementById("certificateForm")
-.addEventListener("submit", function(e) {
-
-    e.preventDefault();
+        document.getElementById("certificateDate").value =
+            `${yyyy}-${mm}-${dd}`;
 
 
-    const certificateNumber =
-        document.getElementById("certificateNumber")
-        .value.trim();
+        function generateCertificateNumber() {
+
+            const random =
+                Math.floor(
+                    100000000000 +
+                    Math.random() * 900000000000
+                );
+
+            return random.toString();
+
+        }
 
 
-    const certificateDate =
-        document.getElementById("certificateDate")
-        .value;
+        document.getElementById("certificateNumber").value =
+            generateCertificateNumber();
+
+    }
 
 
-    const marathiName =
-        document.getElementById("marathiName")
-        .value.trim();
+    /* =====================================================
+       AADHAAR VALIDATION
+    ===================================================== */
+
+    const aadhaarField =
+        document.getElementById("aadhaar");
+
+    if (aadhaarField) {
+
+        aadhaarField.addEventListener(
+            "input",
+            function () {
+
+                this.value =
+                    this.value.replace(/\D/g, "");
+
+            }
+        );
+
+    }
 
 
-    const englishName =
-        document.getElementById("englishName")
-        .value.trim();
+    /* =====================================================
+       PINCODE VALIDATION
+    ===================================================== */
+
+    const pincodeField =
+        document.getElementById("pincode");
+
+    if (pincodeField) {
+
+        pincodeField.addEventListener(
+            "input",
+            function () {
+
+                this.value =
+                    this.value.replace(/\D/g, "");
+
+            }
+        );
+
+    }
 
 
-    const aadhaar =
-        document.getElementById("aadhaar")
-        .value.trim();
+    /* =====================================================
+       SAVE / UPDATE
+    ===================================================== */
+
+    const certificateForm =
+        document.getElementById("certificateForm");
 
 
-    const village =
-        document.getElementById("village")
-        .value.trim();
+    if (!certificateForm) {
 
-
-    const taluka =
-        document.getElementById("taluka")
-        .value.trim();
-
-
-    const district =
-        document.getElementById("district")
-        .value.trim();
-
-
-    const state =
-        document.getElementById("state")
-        .value.trim();
-
-
-    const pincode =
-        document.getElementById("pincode")
-        .value.trim();
-
-
-    const residentType =
-        document.getElementById("residentType")
-        .value;
-
-
-    const place =
-        document.getElementById("place")
-        .value.trim();
-
-
-    const verification =
-        document.getElementById("verification")
-        .value.trim();
-
-
-    /* =================================================
-       VALIDATION
-    ================================================= */
-
-    if (aadhaar.length !== 12) {
-
-        alert(
-            "कृपया 12 अंकी आधार क्रमांक टाका."
+        console.error(
+            "certificateForm not found"
         );
 
         return;
+
     }
 
 
-    if (pincode.length !== 6) {
+    certificateForm.addEventListener(
+        "submit",
+        function (e) {
 
-        alert(
-            "कृपया 6 अंकी पिनकोड टाका."
-        );
-
-        return;
-    }
+            e.preventDefault();
 
 
-    if (!residentType) {
-
-        alert(
-            "कृपया रहिवासी प्रकार निवडा."
-        );
-
-        return;
-    }
+            const certificateNumber =
+                document.getElementById("certificateNumber")
+                .value.trim();
 
 
-    /* =================================================
-       CERTIFICATE OBJECT
-    ================================================= */
-
-    const certificate = {
-
-        certificateNumber:
-            certificateNumber,
-
-        certificateDate:
-            certificateDate,
-
-        marathiName:
-            marathiName,
-
-        englishName:
-            englishName,
-
-        aadhaar:
-            aadhaar,
-
-        village:
-            village,
-
-        taluka:
-            taluka,
-
-        district:
-            district,
-
-        state:
-            state,
-
-        pincode:
-            pincode,
-
-        residentType:
-            residentType,
-
-        place:
-            place,
-
-        verification:
-            verification
-
-    };
+            const certificateDate =
+                document.getElementById("certificateDate")
+                .value;
 
 
-    /* =================================================
-       SAVE CURRENT
-    ================================================= */
-
-    localStorage.setItem(
-        "currentCertificate",
-        JSON.stringify(certificate)
-    );
+            const marathiName =
+                document.getElementById("marathiName")
+                .value.trim();
 
 
-    /* =================================================
-       GET ALL CERTIFICATES
-    ================================================= */
+            const englishName =
+                document.getElementById("englishName")
+                .value.trim();
 
-    let certificates = [];
 
-    try {
+            const aadhaar =
+                document.getElementById("aadhaar")
+                .value.trim();
 
-        certificates =
-            JSON.parse(
-                localStorage.getItem("certificates") || "[]"
+
+            const village =
+                document.getElementById("village")
+                .value.trim();
+
+
+            const taluka =
+                document.getElementById("taluka")
+                .value.trim();
+
+
+            const district =
+                document.getElementById("district")
+                .value.trim();
+
+
+            const state =
+                document.getElementById("state")
+                .value.trim();
+
+
+            const pincode =
+                document.getElementById("pincode")
+                .value.trim();
+
+
+            const residentType =
+                document.getElementById("residentType")
+                .value;
+
+
+            const place =
+                document.getElementById("place")
+                .value.trim();
+
+
+            const verification =
+                document.getElementById("verification")
+                .value.trim();
+
+
+            /* =================================================
+               VALIDATION
+            ================================================= */
+
+            if (aadhaar.length !== 12) {
+
+                alert(
+                    "कृपया 12 अंकी आधार क्रमांक टाका."
+                );
+
+                return;
+
+            }
+
+
+            if (pincode.length !== 6) {
+
+                alert(
+                    "कृपया 6 अंकी पिनकोड टाका."
+                );
+
+                return;
+
+            }
+
+
+            if (!residentType) {
+
+                alert(
+                    "कृपया रहिवासी प्रकार निवडा."
+                );
+
+                return;
+
+            }
+
+
+            /* =================================================
+               CERTIFICATE OBJECT
+            ================================================= */
+
+            const certificate = {
+
+                certificateNumber:
+                    certificateNumber,
+
+                certificateDate:
+                    certificateDate,
+
+                marathiName:
+                    marathiName,
+
+                englishName:
+                    englishName,
+
+                aadhaar:
+                    aadhaar,
+
+                village:
+                    village,
+
+                taluka:
+                    taluka,
+
+                district:
+                    district,
+
+                state:
+                    state,
+
+                pincode:
+                    pincode,
+
+                residentType:
+                    residentType,
+
+                place:
+                    place,
+
+                verification:
+                    verification
+
+            };
+
+
+            /* =================================================
+               SAVE CURRENT
+            ================================================= */
+
+            localStorage.setItem(
+                "currentCertificate",
+                JSON.stringify(certificate)
             );
 
-        if (!Array.isArray(certificates)) {
-            certificates = [];
+
+            /* =================================================
+               GET ALL CERTIFICATES
+            ================================================= */
+
+            let certificates = [];
+
+            try {
+
+                certificates =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "certificates"
+                        ) || "[]"
+                    );
+
+
+                if (!Array.isArray(certificates)) {
+                    certificates = [];
+                }
+
+            } catch (error) {
+
+                certificates = [];
+
+            }
+
+
+            /* =================================================
+               EDIT MODE
+            ================================================= */
+
+            if (editMode) {
+
+                const index =
+                    certificates.findIndex(
+                        function (item) {
+
+                            return String(
+                                item.certificateNumber || ""
+                            ).trim() ===
+                            editingCertificateNumber;
+
+                        }
+                    );
+
+
+                if (index !== -1) {
+
+                    certificates[index] =
+                        certificate;
+
+                } else {
+
+                    certificates.push(
+                        certificate
+                    );
+
+                }
+
+            }
+
+
+            /* =================================================
+               NEW MODE
+            ================================================= */
+
+            else {
+
+                const alreadyExists =
+                    certificates.some(
+                        function (item) {
+
+                            return String(
+                                item.certificateNumber || ""
+                            ).trim() ===
+                            certificateNumber;
+
+                        }
+                    );
+
+
+                if (!alreadyExists) {
+
+                    certificates.push(
+                        certificate
+                    );
+
+                }
+
+            }
+
+
+            /* =================================================
+               SAVE ALL
+            ================================================= */
+
+            localStorage.setItem(
+                "certificates",
+                JSON.stringify(certificates)
+            );
+
+
+            /* =================================================
+               SUCCESS MESSAGE
+            ================================================= */
+
+            const message =
+                document.getElementById("message");
+
+
+            const saveButton =
+                document.getElementById("saveButton");
+
+
+            if (message) {
+
+                message.className =
+                    "success";
+
+                message.style.display =
+                    "block";
+
+
+                if (editMode) {
+
+                    message.innerHTML =
+                        "✅ दाखला माहिती Successfully Update झाली!<br>" +
+                        "Certificate तयार होत आहे...";
+
+                } else {
+
+                    message.innerHTML =
+                        "✅ माहिती Successfully Save झाली!<br>" +
+                        "Certificate तयार होत आहे...";
+
+                }
+
+            }
+
+
+            if (saveButton) {
+
+                saveButton.disabled =
+                    true;
+
+                saveButton.innerText =
+                    "Saved ✓";
+
+            }
+
+
+            /* =================================================
+               OPEN CERTIFICATE
+            ================================================= */
+
+            setTimeout(
+                function () {
+
+                    window.location.href =
+                        "certificate.html";
+
+                },
+                700
+            );
+
         }
-
-    } catch (error) {
-
-        certificates = [];
-
-    }
-
-
-    /* =================================================
-       EDIT MODE
-       UPDATE EXISTING CERTIFICATE
-    ================================================= */
-
-    if (editMode) {
-
-        const index =
-            certificates.findIndex(function(item) {
-
-                return String(
-                    item.certificateNumber || ""
-                ).trim() === editingCertificateNumber;
-
-            });
-
-
-        if (index !== -1) {
-
-            certificates[index] =
-                certificate;
-
-        } else {
-
-            certificates.push(certificate);
-
-        }
-
-    }
-
-
-    /* =================================================
-       NEW MODE
-       ADD NEW CERTIFICATE
-    ================================================= */
-
-    else {
-
-        const alreadyExists =
-            certificates.some(function(item) {
-
-                return String(
-                    item.certificateNumber || ""
-                ).trim() === certificateNumber;
-
-            });
-
-
-        if (!alreadyExists) {
-
-            certificates.push(certificate);
-
-        }
-
-    }
-
-
-    /* =================================================
-       SAVE ALL
-    ================================================= */
-
-    localStorage.setItem(
-        "certificates",
-        JSON.stringify(certificates)
     );
-
-
-    /* =================================================
-       SUCCESS MESSAGE
-    ================================================= */
-
-    const message =
-        document.getElementById("message");
-
-
-    const saveButton =
-        document.getElementById("saveButton");
-
-
-    message.className =
-        "success";
-
-
-    message.style.display =
-        "block";
-
-
-    if (editMode) {
-
-        message.innerHTML =
-            "✅ दाखला माहिती Successfully Update झाली!<br>" +
-            "Certificate तयार होत आहे...";
-
-    } else {
-
-        message.innerHTML =
-            "✅ माहिती Successfully Save झाली!<br>" +
-            "Certificate तयार होत आहे...";
-
-    }
-
-
-    saveButton.disabled =
-        true;
-
-
-    saveButton.innerText =
-        "Saved ✓";
-
-
-    /* =================================================
-       OPEN CERTIFICATE
-    ================================================= */
-
-    setTimeout(function() {
-
-        window.location.href =
-            "certificate.html";
-
-    }, 700);
 
 });
 
