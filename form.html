@@ -158,6 +158,7 @@ button:hover{
 
 <div class="form-grid">
 
+
 <!-- दाखला क्रमांक -->
 
 <div class="form-group">
@@ -194,26 +195,7 @@ button:hover{
 </div>
 
 
-<!-- मराठी नाव -->
-
-<div class="form-group">
-
-<label for="marathiName">
-अर्जदाराचे नाव (मराठी)
-</label>
-
-<input
-    type="text"
-    id="marathiName"
-    name="marathiName"
-    placeholder="मराठी नाव टाका"
-    required
->
-
-</div>
-
-
-<!-- English नाव -->
+<!-- English नाव FIRST -->
 
 <div class="form-group">
 
@@ -226,7 +208,27 @@ button:hover{
     id="englishName"
     name="englishName"
     placeholder="Enter English Name"
+    autocomplete="off"
     required
+>
+
+</div>
+
+
+<!-- Marathi नाव AUTOMATIC -->
+
+<div class="form-group">
+
+<label for="marathiName">
+अर्जदाराचे नाव (मराठी)
+</label>
+
+<input
+    type="text"
+    id="marathiName"
+    name="marathiName"
+    placeholder="मराठी नाव येथे दिसेल"
+    readonly
 >
 
 </div>
@@ -398,7 +400,7 @@ button:hover{
 </div>
 
 
-<!-- पडताळणी -->
+<!-- Verification -->
 
 <div class="form-group full-width">
 
@@ -413,6 +415,7 @@ button:hover{
 ></textarea>
 
 </div>
+
 
 </div>
 
@@ -465,7 +468,8 @@ if(sessionStorage.getItem("loggedIn") !== "true"){
    Elements
 ========================== */
 
-const form = document.getElementById("form");
+const form =
+    document.getElementById("form");
 
 const certificateNumber =
     document.getElementById("certificateNumber");
@@ -515,13 +519,18 @@ function setTodayDate(){
 
     const today = new Date();
 
-    const year = today.getFullYear();
+    const year =
+        today.getFullYear();
 
     const month =
-        String(today.getMonth() + 1).padStart(2,"0");
+        String(
+            today.getMonth() + 1
+        ).padStart(2,"0");
 
     const day =
-        String(today.getDate()).padStart(2,"0");
+        String(
+            today.getDate()
+        ).padStart(2,"0");
 
     certificateDate.value =
         year + "-" + month + "-" + day;
@@ -530,28 +539,29 @@ function setTodayDate(){
 
 
 /* ==========================
-   दाखला क्रमांक Automatic
-   START:
-   547281812524
-
-   जुना Random नंबर
-   968279017103 IGNORE
+   दाखला क्रमांक
+   547281812524 पासून
 ========================== */
 
 function generateCertificateNumber(){
 
-    const START_NUMBER = 547281812524;
+    const START_NUMBER =
+        547281812524;
 
     let certificates = [];
 
     try{
 
         certificates = JSON.parse(
-            localStorage.getItem("certificates") || "[]"
+            localStorage.getItem(
+                "certificates"
+            ) || "[]"
         );
 
         if(!Array.isArray(certificates)){
+
             certificates = [];
+
         }
 
     }catch(error){
@@ -561,27 +571,28 @@ function generateCertificateNumber(){
     }
 
 
-    let maxNumber = START_NUMBER - 1;
+    let maxNumber =
+        START_NUMBER - 1;
 
 
     certificates.forEach(function(item){
 
         const value =
-            String(item.certificateNumber || "").trim();
+            String(
+                item.certificateNumber || ""
+            ).trim();
 
 
         /*
-          फक्त 547281812 ने सुरू होणारे
-          certificate number मोजायचे.
-          
-          त्यामुळे:
-          968279017103
-          सारखा जुना random नंबर ignore होईल.
+          फक्त आपल्या
+          547281812xxx
+          नंबरना मोजायचे
         */
 
         if(/^547281812\d+$/.test(value)){
 
-            const num = Number(value);
+            const num =
+                Number(value);
 
 
             if(
@@ -599,7 +610,119 @@ function generateCertificateNumber(){
     });
 
 
-    return String(maxNumber + 1);
+    return String(
+        maxNumber + 1
+    );
+
+}
+
+
+/* ==========================
+   English → Marathi
+========================== */
+
+let transliterationTimer = null;
+
+
+englishName.addEventListener(
+    "input",
+    function(){
+
+        clearTimeout(
+            transliterationTimer
+        );
+
+
+        const englishText =
+            englishName.value.trim();
+
+
+        if(!englishText){
+
+            marathiName.value = "";
+
+            return;
+
+        }
+
+
+        /*
+          थोडा delay ठेवला आहे
+          म्हणजे प्रत्येक अक्षरावर
+          request जाणार नाही.
+        */
+
+        transliterationTimer =
+            setTimeout(function(){
+
+                convertEnglishToMarathi(
+                    englishText
+                );
+
+            },500);
+
+    }
+);
+
+
+/* ==========================
+   Google Transliteration
+========================== */
+
+function convertEnglishToMarathi(
+    text
+){
+
+    const url =
+        "https://inputtools.google.com/request" +
+        "?text=" +
+        encodeURIComponent(text) +
+        "&itc=mr-t-i0-und" +
+        "&num=5" +
+        "&cp=0" +
+        "&cs=1" +
+        "&ie=utf-8" +
+        "&oe=utf-8";
+
+
+    fetch(url)
+
+    .then(function(response){
+
+        return response.json();
+
+    })
+
+    .then(function(data){
+
+        if(
+            data &&
+            data[0] === "SUCCESS" &&
+            data[1] &&
+            data[1][0] &&
+            data[1][0][1] &&
+            data[1][0][1].length > 0
+        ){
+
+            /*
+              पहिला Marathi suggestion
+            */
+
+            marathiName.value =
+                data[1][0][1][0];
+
+        }
+
+    })
+
+    .catch(function(error){
+
+        console.log(
+            "Marathi conversion error:",
+            error
+        );
+
+    });
 
 }
 
@@ -609,7 +732,9 @@ function generateCertificateNumber(){
 ========================== */
 
 const editMode =
-    sessionStorage.getItem("editCertificate") === "true";
+    sessionStorage.getItem(
+        "editCertificate"
+    ) === "true";
 
 
 if(editMode){
@@ -618,50 +743,65 @@ if(editMode){
 
         const currentCertificate =
             JSON.parse(
-                localStorage.getItem("currentCertificate") || "null"
+                localStorage.getItem(
+                    "currentCertificate"
+                ) || "null"
             );
 
 
         if(currentCertificate){
 
             certificateNumber.value =
-                currentCertificate.certificateNumber || "";
+                currentCertificate
+                .certificateNumber || "";
 
             certificateDate.value =
-                currentCertificate.certificateDate || "";
-
-            marathiName.value =
-                currentCertificate.marathiName || "";
+                currentCertificate
+                .certificateDate || "";
 
             englishName.value =
-                currentCertificate.englishName || "";
+                currentCertificate
+                .englishName || "";
+
+            marathiName.value =
+                currentCertificate
+                .marathiName || "";
 
             aadhaar.value =
-                currentCertificate.aadhaar || "";
+                currentCertificate
+                .aadhaar || "";
 
             village.value =
-                currentCertificate.village || "आडगाव";
+                currentCertificate
+                .village || "आडगाव";
 
             taluka.value =
-                currentCertificate.taluka || "भोकरदन";
+                currentCertificate
+                .taluka || "भोकरदन";
 
             district.value =
-                currentCertificate.district || "जालना";
+                currentCertificate
+                .district || "जालना";
 
             state.value =
-                currentCertificate.state || "महाराष्ट्र";
+                currentCertificate
+                .state || "महाराष्ट्र";
 
             pincode.value =
-                currentCertificate.pincode || "431112";
+                currentCertificate
+                .pincode || "431112";
 
             residentType.value =
-                currentCertificate.residentType || "";
+                currentCertificate
+                .residentType || "";
 
             place.value =
-                currentCertificate.place || "आडगाव";
+                currentCertificate
+                .place || "आडगाव";
 
             verification.value =
-                currentCertificate.verification || "";
+                currentCertificate
+                .verification || "";
 
         }
 
@@ -672,8 +812,6 @@ if(editMode){
     }
 
 }else{
-
-    /* नवीन दाखला */
 
     certificateNumber.value =
         generateCertificateNumber();
@@ -687,145 +825,190 @@ if(editMode){
    Form Submit
 ========================== */
 
-form.addEventListener("submit", function(event){
+form.addEventListener(
+    "submit",
+    function(event){
 
-    event.preventDefault();
-
-
-    /* आधार validation */
-
-    const aadhaarValue =
-        aadhaar.value.trim();
-
-    if(!/^\d{12}$/.test(aadhaarValue)){
-
-        alert("कृपया 12 अंकी आधार क्रमांक टाका.");
-
-        aadhaar.focus();
-
-        return;
-
-    }
+        event.preventDefault();
 
 
-    /* पिनकोड validation */
+        /* आधार validation */
 
-    const pincodeValue =
-        pincode.value.trim();
-
-    if(!/^\d{6}$/.test(pincodeValue)){
-
-        alert("कृपया 6 अंकी पिनकोड टाका.");
-
-        pincode.focus();
-
-        return;
-
-    }
+        const aadhaarValue =
+            aadhaar.value.trim();
 
 
-    /* Certificate object */
+        if(!/^\d{12}$/.test(
+            aadhaarValue
+        )){
 
-    const certificate = {
+            alert(
+                "कृपया 12 अंकी आधार क्रमांक टाका."
+            );
 
-        certificateNumber:
-            certificateNumber.value.trim(),
+            aadhaar.focus();
 
-        certificateDate:
-            certificateDate.value,
+            return;
 
-        marathiName:
-            marathiName.value.trim(),
-
-        englishName:
-            englishName.value.trim(),
-
-        aadhaar:
-            aadhaarValue,
-
-        village:
-            village.value.trim(),
-
-        taluka:
-            taluka.value.trim(),
-
-        district:
-            district.value.trim(),
-
-        state:
-            state.value.trim(),
-
-        pincode:
-            pincodeValue,
-
-        residentType:
-            residentType.value,
-
-        place:
-            place.value.trim(),
-
-        verification:
-            verification.value.trim()
-
-    };
-
-
-    /* ==========================
-       Current Certificate
-    ========================== */
-
-    localStorage.setItem(
-        "currentCertificate",
-        JSON.stringify(certificate)
-    );
-
-
-    /* ==========================
-       Certificates Array
-    ========================== */
-
-    let certificates = [];
-
-    try{
-
-        certificates = JSON.parse(
-            localStorage.getItem("certificates") || "[]"
-        );
-
-        if(!Array.isArray(certificates)){
-            certificates = [];
         }
 
-    }catch(error){
 
-        certificates = [];
+        /* पिनकोड validation */
 
-    }
-
-
-    /* ==========================
-       Edit असल्यास Update
-    ========================== */
-
-    if(editMode){
-
-        const editNumber =
-            certificate.certificateNumber;
+        const pincodeValue =
+            pincode.value.trim();
 
 
-        const index =
-            certificates.findIndex(function(item){
+        if(!/^\d{6}$/.test(
+            pincodeValue
+        )){
 
-                return String(item.certificateNumber) ===
-                       String(editNumber);
+            alert(
+                "कृपया 6 अंकी पिनकोड टाका."
+            );
 
-            });
+            pincode.focus();
+
+            return;
+
+        }
 
 
-        if(index !== -1){
+        /* Marathi नाव check */
 
-            certificates[index] =
-                certificate;
+        if(!marathiName.value.trim()){
+
+            alert(
+                "कृपया English नाव टाका आणि Marathi नाव तयार होऊ द्या."
+            );
+
+            englishName.focus();
+
+            return;
+
+        }
+
+
+        /* Certificate object */
+
+        const certificate = {
+
+            certificateNumber:
+                certificateNumber.value.trim(),
+
+            certificateDate:
+                certificateDate.value,
+
+            marathiName:
+                marathiName.value.trim(),
+
+            englishName:
+                englishName.value.trim(),
+
+            aadhaar:
+                aadhaarValue,
+
+            village:
+                village.value.trim(),
+
+            taluka:
+                taluka.value.trim(),
+
+            district:
+                district.value.trim(),
+
+            state:
+                state.value.trim(),
+
+            pincode:
+                pincodeValue,
+
+            residentType:
+                residentType.value,
+
+            place:
+                place.value.trim(),
+
+            verification:
+                verification.value.trim()
+
+        };
+
+
+        /* Current Certificate */
+
+        localStorage.setItem(
+            "currentCertificate",
+            JSON.stringify(
+                certificate
+            )
+        );
+
+
+        /* Certificates Array */
+
+        let certificates = [];
+
+        try{
+
+            certificates = JSON.parse(
+                localStorage.getItem(
+                    "certificates"
+                ) || "[]"
+            );
+
+            if(!Array.isArray(
+                certificates
+            )){
+
+                certificates = [];
+
+            }
+
+        }catch(error){
+
+            certificates = [];
+
+        }
+
+
+        /* ==========================
+           Edit
+        ========================== */
+
+        if(editMode){
+
+            const editNumber =
+                certificate.certificateNumber;
+
+
+            const index =
+                certificates.findIndex(
+                    function(item){
+
+                        return String(
+                            item.certificateNumber
+                        ) === String(
+                            editNumber
+                        );
+
+                    }
+                );
+
+
+            if(index !== -1){
+
+                certificates[index] =
+                    certificate;
+
+            }else{
+
+                certificates.push(
+                    certificate
+                );
+
+            }
+
 
         }else{
 
@@ -836,60 +1019,57 @@ form.addEventListener("submit", function(event){
         }
 
 
-    }else{
+        /* Save */
 
-        /* नवीन Certificate */
-
-        certificates.push(
-            certificate
+        localStorage.setItem(
+            "certificates",
+            JSON.stringify(
+                certificates
+            )
         );
 
+
+        /* Edit flag clear */
+
+        sessionStorage.removeItem(
+            "editCertificate"
+        );
+
+
+        /* Certificate */
+
+        window.location.href =
+            "certificate.html";
+
     }
-
-
-    /* Save */
-
-    localStorage.setItem(
-        "certificates",
-        JSON.stringify(certificates)
-    );
-
-
-    /* Edit flag clear */
-
-    sessionStorage.removeItem(
-        "editCertificate"
-    );
-
-
-    /* Certificate page */
-
-    window.location.href =
-        "certificate.html";
-
-});
+);
 
 
 /* ==========================
-   Reset Button
+   Reset
 ========================== */
 
-form.addEventListener("reset", function(){
+form.addEventListener(
+    "reset",
+    function(){
 
-    setTimeout(function(){
+        setTimeout(function(){
 
-        if(!editMode){
+            if(!editMode){
 
-            certificateNumber.value =
-                generateCertificateNumber();
+                certificateNumber.value =
+                    generateCertificateNumber();
 
-            setTodayDate();
+                setTodayDate();
 
-        }
+                marathiName.value = "";
 
-    },10);
+            }
 
-});
+        },10);
+
+    }
+);
 
 </script>
 
