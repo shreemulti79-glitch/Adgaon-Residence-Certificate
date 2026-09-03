@@ -2,6 +2,7 @@
 
 let selectedCertificate = null;
 
+
 /* =========================
    SEARCH
 ========================= */
@@ -13,27 +14,53 @@ function searchCertificate(){
         .value
         .trim();
 
-    const error = document.getElementById("error");
-    const result = document.getElementById("result");
+    const error =
+        document.getElementById("error");
+
+    const result =
+        document.getElementById("result");
 
     error.textContent = "";
     result.style.display = "none";
 
+
     if(!number){
-        error.textContent = "कृपया दाखला क्रमांक टाका.";
+
+        error.textContent =
+            "कृपया दाखला क्रमांक टाका.";
+
         return;
     }
 
-    const certificates = JSON.parse(
-        localStorage.getItem("certificates") || "[]"
-    );
 
-    selectedCertificate = certificates.find(function(item){
+    let certificates = [];
 
-        return String(item.certificateNumber || "")
-            .trim() === number;
+    try {
 
-    });
+        certificates = JSON.parse(
+            localStorage.getItem("certificates") || "[]"
+        );
+
+        if(!Array.isArray(certificates)){
+            certificates = [];
+        }
+
+    } catch(error){
+
+        certificates = [];
+
+    }
+
+
+    selectedCertificate =
+        certificates.find(function(item){
+
+            return String(
+                item.certificateNumber || ""
+            ).trim() === number;
+
+        });
+
 
     if(!selectedCertificate){
 
@@ -42,6 +69,7 @@ function searchCertificate(){
 
         return;
     }
+
 
     document.getElementById("showNumber").textContent =
         selectedCertificate.certificateNumber || "";
@@ -64,6 +92,7 @@ function searchCertificate(){
     document.getElementById("showDistrict").textContent =
         selectedCertificate.district || "";
 
+
     result.style.display = "block";
 }
 
@@ -75,16 +104,38 @@ function searchCertificate(){
 function editCertificate(){
 
     if(!selectedCertificate){
-        alert("आधी दाखला शोधा.");
+
+        alert(
+            "आधी दाखला शोधा."
+        );
+
         return;
     }
 
+
+    /* जुना दाखला current म्हणून सेव्ह */
+
     localStorage.setItem(
         "currentCertificate",
-        JSON.stringify(selectedCertificate)
+        JSON.stringify(
+            selectedCertificate
+        )
     );
 
-    window.location.href = "form.html";
+
+    /* EDIT MODE ON */
+
+    sessionStorage.setItem(
+        "editCertificate",
+        "true"
+    );
+
+
+    /* FORM OPEN */
+
+    window.location.href =
+        "form.html";
+
 }
 
 
@@ -95,16 +146,32 @@ function editCertificate(){
 function printCertificate(){
 
     if(!selectedCertificate){
-        alert("आधी दाखला शोधा.");
+
+        alert(
+            "आधी दाखला शोधा."
+        );
+
         return;
     }
 
+
     localStorage.setItem(
         "currentCertificate",
-        JSON.stringify(selectedCertificate)
+        JSON.stringify(
+            selectedCertificate
+        )
     );
 
-    window.location.href = "certificate.html";
+
+    /* PRINT MODE */
+
+    sessionStorage.removeItem(
+        "editCertificate"
+    );
+
+
+    window.location.href =
+        "certificate.html";
 }
 
 
@@ -112,13 +179,21 @@ function printCertificate(){
    ENTER KEY SEARCH
 ========================= */
 
-document.getElementById("searchNumber")
-.addEventListener("keydown", function(event){
+document
+.getElementById("searchNumber")
+.addEventListener(
+    "keydown",
+    function(event){
 
-    if(event.key === "Enter"){
-        searchCertificate();
+        if(event.key === "Enter"){
+
+            event.preventDefault();
+
+            searchCertificate();
+
+        }
+
     }
-
-});
+);
 
 </script>
