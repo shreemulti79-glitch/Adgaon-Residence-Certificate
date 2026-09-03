@@ -1,4 +1,361 @@
+<!DOCTYPE html>
+<html lang="mr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>दाखला शोधा</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    padding:0;
+    font-family:Arial,"Noto Sans Devanagari",sans-serif;
+    background:#f2f4f7;
+    color:#222;
+}
+
+.header{
+    background:#075e54;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.header h1{
+    margin:0;
+    font-size:26px;
+}
+
+.header p{
+    margin:6px 0 0;
+}
+
+.container{
+    width:95%;
+    max-width:800px;
+    margin:30px auto;
+}
+
+.box{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 2px 12px rgba(0,0,0,0.12);
+}
+
+.title{
+    text-align:center;
+    font-size:24px;
+    font-weight:bold;
+    color:#075e54;
+    margin-bottom:25px;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+input{
+    width:100%;
+    padding:13px;
+    border:1px solid #aaa;
+    border-radius:6px;
+    font-size:17px;
+}
+
+.search-btn{
+    width:100%;
+    margin-top:15px;
+    padding:13px;
+    border:none;
+    border-radius:6px;
+    background:#075e54;
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+}
+
+.search-btn:hover{
+    background:#064c44;
+}
+
+#error{
+    color:#d00000;
+    text-align:center;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+#result{
+    display:none;
+    margin-top:25px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    padding:20px;
+    background:#fafafa;
+}
+
+.result-row{
+    display:grid;
+    grid-template-columns:180px 1fr;
+    gap:10px;
+    padding:9px 0;
+    border-bottom:1px solid #ddd;
+}
+
+.result-row:last-child{
+    border-bottom:none;
+}
+
+.result-label{
+    font-weight:bold;
+}
+
+.buttons{
+    display:flex;
+    gap:12px;
+    margin-top:20px;
+}
+
+.buttons button{
+    flex:1;
+    padding:12px;
+    border:none;
+    border-radius:6px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.edit-btn{
+    background:#f0ad00;
+    color:white;
+}
+
+.print-btn{
+    background:#075e54;
+    color:white;
+}
+
+.back{
+    text-align:center;
+    margin-top:20px;
+}
+
+.back a{
+    color:#075e54;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+@media(max-width:600px){
+
+    .result-row{
+        grid-template-columns:1fr;
+        gap:4px;
+    }
+
+    .buttons{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+    <h1>ग्रामपंचायत कार्यालय आडगाव</h1>
+
+    <p>ता. भोकरदन जि. जालना</p>
+
+</div>
+
+
+<div class="container">
+
+<div class="box">
+
+    <div class="title">
+        🔎 दाखला शोधा
+    </div>
+
+
+    <label>
+        दाखला क्रमांक टाका
+    </label>
+
+
+    <input
+        type="text"
+        id="searchNumber"
+        placeholder="दाखला क्रमांक टाका"
+    >
+
+
+    <button
+        class="search-btn"
+        onclick="searchCertificate()"
+    >
+        🔎 दाखला शोधा
+    </button>
+
+
+    <div id="error"></div>
+
+
+    <div id="result">
+
+        <div class="result-row">
+
+            <div class="result-label">
+                दाखला क्रमांक
+            </div>
+
+            <div id="showNumber"></div>
+
+        </div>
+
+
+        <div class="result-row">
+
+            <div class="result-label">
+                दिनांक
+            </div>
+
+            <div id="showDate"></div>
+
+        </div>
+
+
+        <div class="result-row">
+
+            <div class="result-label">
+                नाव
+            </div>
+
+            <div id="showName"></div>
+
+        </div>
+
+
+        <div class="result-row">
+
+            <div class="result-label">
+                आधार क्रमांक
+            </div>
+
+            <div id="showAadhaar"></div>
+
+        </div>
+
+
+        <div class="result-row">
+
+            <div class="result-label">
+                गाव
+            </div>
+
+            <div id="showVillage"></div>
+
+        </div>
+
+
+        <div class="result-row">
+
+            <div class="result-label">
+                तालुका
+            </div>
+
+            <div id="showTaluka"></div>
+
+        </div>
+
+
+        <div class="result-row">
+
+            <div class="result-label">
+                जिल्हा
+            </div>
+
+            <div id="showDistrict"></div>
+
+        </div>
+
+
+        <div class="buttons">
+
+            <button
+                class="edit-btn"
+                onclick="editCertificate()"
+            >
+                ✏️ दाखला Edit करा
+            </button>
+
+
+            <button
+                class="print-btn"
+                onclick="printCertificate()"
+            >
+                🖨️ दाखला Print करा
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="back">
+
+        <a href="dashboard.html">
+            ← Dashboard वर जा
+        </a>
+
+    </div>
+
+</div>
+
+</div>
+
+
+
 <script>
+
+
+/* =========================
+   LOGIN CHECK
+========================= */
+
+if(
+    sessionStorage.getItem("loggedIn") !== "true"
+){
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+/* =========================
+   SELECTED CERTIFICATE
+========================= */
 
 let selectedCertificate = null;
 
@@ -9,18 +366,23 @@ let selectedCertificate = null;
 
 function searchCertificate(){
 
-    const number = document
+    const number =
+        document
         .getElementById("searchNumber")
         .value
         .trim();
 
+
     const error =
         document.getElementById("error");
+
 
     const result =
         document.getElementById("result");
 
+
     error.textContent = "";
+
     result.style.display = "none";
 
 
@@ -30,22 +392,31 @@ function searchCertificate(){
             "कृपया दाखला क्रमांक टाका.";
 
         return;
+
     }
 
 
     let certificates = [];
 
-    try {
 
-        certificates = JSON.parse(
-            localStorage.getItem("certificates") || "[]"
-        );
+    try{
+
+        certificates =
+            JSON.parse(
+                localStorage.getItem(
+                    "certificates"
+                ) || "[]"
+            );
+
 
         if(!Array.isArray(certificates)){
+
             certificates = [];
+
         }
 
-    } catch(error){
+    }
+    catch(e){
 
         certificates = [];
 
@@ -68,32 +439,55 @@ function searchCertificate(){
             "हा दाखला क्रमांक सापडला नाही.";
 
         return;
+
     }
 
 
-    document.getElementById("showNumber").textContent =
+    document.getElementById(
+        "showNumber"
+    ).textContent =
         selectedCertificate.certificateNumber || "";
 
-    document.getElementById("showDate").textContent =
+
+    document.getElementById(
+        "showDate"
+    ).textContent =
         selectedCertificate.certificateDate || "";
 
-    document.getElementById("showName").textContent =
+
+    document.getElementById(
+        "showName"
+    ).textContent =
         selectedCertificate.marathiName || "";
 
-    document.getElementById("showAadhaar").textContent =
+
+    document.getElementById(
+        "showAadhaar"
+    ).textContent =
         selectedCertificate.aadhaar || "";
 
-    document.getElementById("showVillage").textContent =
+
+    document.getElementById(
+        "showVillage"
+    ).textContent =
         selectedCertificate.village || "";
 
-    document.getElementById("showTaluka").textContent =
+
+    document.getElementById(
+        "showTaluka"
+    ).textContent =
         selectedCertificate.taluka || "";
 
-    document.getElementById("showDistrict").textContent =
+
+    document.getElementById(
+        "showDistrict"
+    ).textContent =
         selectedCertificate.district || "";
 
 
-    result.style.display = "block";
+    result.style.display =
+        "block";
+
 }
 
 
@@ -110,10 +504,9 @@ function editCertificate(){
         );
 
         return;
+
     }
 
-
-    /* जुना दाखला current म्हणून सेव्ह */
 
     localStorage.setItem(
         "currentCertificate",
@@ -123,15 +516,11 @@ function editCertificate(){
     );
 
 
-    /* EDIT MODE ON */
-
     sessionStorage.setItem(
         "editCertificate",
         "true"
     );
 
-
-    /* FORM OPEN */
 
     window.location.href =
         "form.html";
@@ -152,6 +541,7 @@ function printCertificate(){
         );
 
         return;
+
     }
 
 
@@ -163,8 +553,6 @@ function printCertificate(){
     );
 
 
-    /* PRINT MODE */
-
     sessionStorage.removeItem(
         "editCertificate"
     );
@@ -172,11 +560,12 @@ function printCertificate(){
 
     window.location.href =
         "certificate.html";
+
 }
 
 
 /* =========================
-   ENTER KEY SEARCH
+   ENTER KEY
 ========================= */
 
 document
@@ -197,3 +586,8 @@ document
 );
 
 </script>
+
+
+</body>
+
+</html>
