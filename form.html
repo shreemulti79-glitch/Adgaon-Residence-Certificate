@@ -1,95 +1,730 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>नवीन रहिवासी दाखला</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    padding:0;
+    font-family:Arial,"Noto Sans Devanagari",sans-serif;
+    background:#f2f4f7;
+    color:#222;
+}
+
+.header{
+    background:#075e54;
+    color:white;
+    padding:18px 15px;
+    text-align:center;
+}
+
+.header h1{
+    margin:0;
+    font-size:25px;
+}
+
+.header p{
+    margin:5px 0 0;
+    font-size:15px;
+}
+
+.container{
+    width:95%;
+    max-width:850px;
+    margin:25px auto;
+}
+
+.form-box{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 2px 12px rgba(0,0,0,0.12);
+}
+
+.form-title{
+    text-align:center;
+    font-size:23px;
+    font-weight:bold;
+    margin-bottom:22px;
+    color:#075e54;
+}
+
+.row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.field{
+    margin-bottom:16px;
+}
+
+.field.full{
+    grid-column:1 / -1;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:11px;
+    border:1px solid #bbb;
+    border-radius:6px;
+    font-size:16px;
+    outline:none;
+    background:#fff;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#075e54;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+input[readonly]{
+    background:#f1f1f1;
+}
+
+.btn-area{
+    text-align:center;
+    margin-top:20px;
+}
+
+button{
+    background:#075e54;
+    color:white;
+    border:none;
+    padding:13px 35px;
+    font-size:17px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#064c44;
+}
+
+button:disabled{
+    background:#777;
+    cursor:not-allowed;
+}
+
+.success{
+    display:none;
+    margin-top:18px;
+    padding:13px;
+    background:#dff5e5;
+    color:#176b2c;
+    border:1px solid #9bd2a8;
+    border-radius:6px;
+    text-align:center;
+    font-weight:bold;
+}
+
+.back{
+    text-align:center;
+    margin-top:18px;
+}
+
+.back a{
+    color:#075e54;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+@media(max-width:650px){
+
+    .row{
+        grid-template-columns:1fr;
+    }
+
+    .field.full{
+        grid-column:auto;
+    }
+
+    .form-box{
+        padding:18px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<div class="header">
+
+    <h1>ग्रामपंचायत कार्यालय आडगाव</h1>
+
+    <p>
+        ता. भोकरदन जि. जालना
+    </p>
+
+</div>
+
+
+<!-- =====================================================
+     FORM
+===================================================== -->
+
+<div class="container">
+
+<div class="form-box">
+
+    <div class="form-title">
+        नवीन रहिवासी दाखला
+    </div>
+
+
+    <form id="certificateForm">
+
+
+        <div class="row">
+
+
+            <!-- Certificate Number -->
+
+            <div class="field">
+
+                <label>
+                    दाखला क्रमांक
+                </label>
+
+                <input
+                    type="text"
+                    id="certificateNumber"
+                    readonly
+                >
+
+            </div>
+
+
+            <!-- Certificate Date -->
+
+            <div class="field">
+
+                <label>
+                    दाखला दिनांक
+                </label>
+
+                <input
+                    type="date"
+                    id="certificateDate"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Marathi Name -->
+
+            <div class="field">
+
+                <label>
+                    अर्जदाराचे नाव (मराठी)
+                </label>
+
+                <input
+                    type="text"
+                    id="marathiName"
+                    placeholder="मराठी नाव टाका"
+                    required
+                >
+
+            </div>
+
+
+            <!-- English Name -->
+
+            <div class="field">
+
+                <label>
+                    अर्जदाराचे नाव (English)
+                </label>
+
+                <input
+                    type="text"
+                    id="englishName"
+                    placeholder="Enter English Name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Aadhaar -->
+
+            <div class="field">
+
+                <label>
+                    आधार क्रमांक
+                </label>
+
+                <input
+                    type="text"
+                    id="aadhaar"
+                    maxlength="12"
+                    inputmode="numeric"
+                    placeholder="12 अंकी आधार क्रमांक"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Village -->
+
+            <div class="field">
+
+                <label>
+                    गाव
+                </label>
+
+                <input
+                    type="text"
+                    id="village"
+                    value="आडगाव"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Taluka -->
+
+            <div class="field">
+
+                <label>
+                    तालुका
+                </label>
+
+                <input
+                    type="text"
+                    id="taluka"
+                    value="भोकरदन"
+                    required
+                >
+
+            </div>
+
+
+            <!-- District -->
+
+            <div class="field">
+
+                <label>
+                    जिल्हा
+                </label>
+
+                <input
+                    type="text"
+                    id="district"
+                    value="जालना"
+                    required
+                >
+
+            </div>
+
+
+            <!-- State -->
+
+            <div class="field">
+
+                <label>
+                    राज्य
+                </label>
+
+                <input
+                    type="text"
+                    id="state"
+                    value="महाराष्ट्र"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Pincode -->
+
+            <div class="field">
+
+                <label>
+                    पिनकोड
+                </label>
+
+                <input
+                    type="text"
+                    id="pincode"
+                    maxlength="6"
+                    inputmode="numeric"
+                    value="431112"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Resident Type -->
+
+            <div class="field">
+
+                <label>
+                    रहिवासी प्रकार
+                </label>
+
+                <select
+                    id="residentType"
+                    required
+                >
+
+                    <option value="">
+                        -- निवडा --
+                    </option>
+
+                    <option value="कायम">
+                        कायम
+                    </option>
+
+                    <option value="तात्पुरते">
+                        तात्पुरते
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Place -->
+
+            <div class="field">
+
+                <label>
+                    ठिकाण
+                </label>
+
+                <input
+                    type="text"
+                    id="place"
+                    value="आडगाव"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Verification -->
+
+            <div class="field full">
+
+                <label>
+                    पडताळणी / Verification
+                </label>
+
+                <textarea
+                    id="verification"
+                >सदर दाखला त्यांचे विनंती अर्जानुसार, रहिवासी पुराव्याची पडताळणी व स्थानिक चौकशीच्या आधारे देण्यात येत आहे.</textarea>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- SAVE -->
+
+        <div class="btn-area">
+
+            <button
+                type="submit"
+                id="saveButton"
+            >
+                दाखला सेव्ह करा
+            </button>
+
+        </div>
+
+
+        <!-- MESSAGE -->
+
+        <div
+            id="message"
+            class="success"
+        ></div>
+
+
+    </form>
+
+
+    <div class="back">
+
+        <a href="dashboard.html">
+            ← Dashboard वर जा
+        </a>
+
+    </div>
+
+
+</div>
+
+</div>
+
+
+
 <script>
 
 document.addEventListener("DOMContentLoaded", function () {
+
 
     /* =====================================================
        LOGIN CHECK
     ===================================================== */
 
-    if (sessionStorage.getItem("loggedIn") !== "true") {
+    if (
+        sessionStorage.getItem("loggedIn") !== "true"
+    ) {
+
         window.location.href = "index.html";
+
         return;
+
     }
 
 
     /* =====================================================
-       EDIT MODE / NEW MODE
+       ELEMENTS
     ===================================================== */
 
-    let editMode = false;
-    let editingCertificateNumber = "";
+    const certificateNumber =
+        document.getElementById(
+            "certificateNumber"
+        );
+
+    const certificateDate =
+        document.getElementById(
+            "certificateDate"
+        );
+
+    const marathiName =
+        document.getElementById(
+            "marathiName"
+        );
+
+    const englishName =
+        document.getElementById(
+            "englishName"
+        );
+
+    const aadhaar =
+        document.getElementById(
+            "aadhaar"
+        );
+
+    const village =
+        document.getElementById(
+            "village"
+        );
+
+    const taluka =
+        document.getElementById(
+            "taluka"
+        );
+
+    const district =
+        document.getElementById(
+            "district"
+        );
+
+    const state =
+        document.getElementById(
+            "state"
+        );
+
+    const pincode =
+        document.getElementById(
+            "pincode"
+        );
+
+    const residentType =
+        document.getElementById(
+            "residentType"
+        );
+
+    const place =
+        document.getElementById(
+            "place"
+        );
+
+    const verification =
+        document.getElementById(
+            "verification"
+        );
+
+    const form =
+        document.getElementById(
+            "certificateForm"
+        );
 
 
     /* =====================================================
-       LOAD CURRENT CERTIFICATE
+       NEW CERTIFICATE NUMBER
     ===================================================== */
 
-    const savedCurrent =
-        localStorage.getItem("currentCertificate");
+    function generateCertificateNumber(){
+
+        return String(
+            Math.floor(
+                100000000000 +
+                Math.random() * 900000000000
+            )
+        );
+
+    }
 
 
-    if (savedCurrent) {
+    /* =====================================================
+       TODAY DATE
+    ===================================================== */
 
-        try {
+    const today =
+        new Date();
 
-            const data = JSON.parse(savedCurrent);
+    const yyyy =
+        today.getFullYear();
 
-            if (data && data.certificateNumber) {
+    const mm =
+        String(
+            today.getMonth() + 1
+        ).padStart(2,"0");
 
-                editMode = true;
+    const dd =
+        String(
+            today.getDate()
+        ).padStart(2,"0");
 
-                editingCertificateNumber =
-                    String(data.certificateNumber);
+
+    certificateDate.value =
+        yyyy + "-" + mm + "-" + dd;
 
 
-                document.getElementById("certificateNumber").value =
-                    data.certificateNumber || "";
+    /* =====================================================
+       LOAD EDIT DATA ONLY WHEN SEARCH EDIT FLAG EXISTS
+    ===================================================== */
 
-                document.getElementById("certificateDate").value =
-                    data.certificateDate || "";
+    let editMode = false;
 
-                document.getElementById("marathiName").value =
-                    data.marathiName || "";
+    let editingNumber = "";
 
-                document.getElementById("englishName").value =
-                    data.englishName || "";
 
-                document.getElementById("aadhaar").value =
-                    data.aadhaar || "";
+    const editRequest =
+        sessionStorage.getItem(
+            "editCertificate"
+        );
 
-                document.getElementById("village").value =
-                    data.village || "आडगाव";
 
-                document.getElementById("taluka").value =
-                    data.taluka || "भोकरदन";
+    if (editRequest === "true") {
 
-                document.getElementById("district").value =
-                    data.district || "जालना";
+        const saved =
+            localStorage.getItem(
+                "currentCertificate"
+            );
 
-                document.getElementById("state").value =
-                    data.state || "महाराष्ट्र";
 
-                document.getElementById("pincode").value =
-                    data.pincode || "431112";
+        if (saved) {
 
-                document.getElementById("residentType").value =
-                    data.residentType || "";
+            try {
 
-                document.getElementById("place").value =
-                    data.place || "आडगाव";
+                const data =
+                    JSON.parse(saved);
 
-                document.getElementById("verification").value =
-                    data.verification ||
-                    "सदर दाखला त्यांचे विनंती अर्जानुसार, रहिवासी पुराव्याची पडताळणी व स्थानिक चौकशीच्या आधारे देण्यात येत आहे.";
+
+                if (
+                    data &&
+                    data.certificateNumber
+                ) {
+
+                    editMode = true;
+
+                    editingNumber =
+                        String(
+                            data.certificateNumber
+                        );
+
+
+                    certificateNumber.value =
+                        data.certificateNumber || "";
+
+                    certificateDate.value =
+                        data.certificateDate || "";
+
+                    marathiName.value =
+                        data.marathiName || "";
+
+                    englishName.value =
+                        data.englishName || "";
+
+                    aadhaar.value =
+                        data.aadhaar || "";
+
+                    village.value =
+                        data.village || "आडगाव";
+
+                    taluka.value =
+                        data.taluka || "भोकरदन";
+
+                    district.value =
+                        data.district || "जालना";
+
+                    state.value =
+                        data.state || "महाराष्ट्र";
+
+                    pincode.value =
+                        data.pincode || "431112";
+
+                    residentType.value =
+                        data.residentType || "";
+
+                    place.value =
+                        data.place || "आडगाव";
+
+                    verification.value =
+                        data.verification ||
+                        "सदर दाखला त्यांचे विनंती अर्जानुसार, रहिवासी पुराव्याची पडताळणी व स्थानिक चौकशीच्या आधारे देण्यात येत आहे.";
+
+                }
+
+            } catch(error){
+
+                console.log(error);
 
             }
-
-        } catch (error) {
-
-            console.log(
-                "Current certificate load error:",
-                error
-            );
 
         }
 
@@ -97,188 +732,63 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       NEW CERTIFICATE
+       NEW MODE
     ===================================================== */
 
     if (!editMode) {
 
-        const today = new Date();
-
-        const yyyy =
-            today.getFullYear();
-
-        const mm =
-            String(today.getMonth() + 1)
-            .padStart(2, "0");
-
-        const dd =
-            String(today.getDate())
-            .padStart(2, "0");
-
-
-        document.getElementById("certificateDate").value =
-            `${yyyy}-${mm}-${dd}`;
-
-
-        function generateCertificateNumber() {
-
-            const random =
-                Math.floor(
-                    100000000000 +
-                    Math.random() * 900000000000
-                );
-
-            return random.toString();
-
-        }
-
-
-        document.getElementById("certificateNumber").value =
+        certificateNumber.value =
             generateCertificateNumber();
 
     }
 
 
     /* =====================================================
-       AADHAAR VALIDATION
+       INPUT VALIDATION
     ===================================================== */
 
-    const aadhaarField =
-        document.getElementById("aadhaar");
+    aadhaar.addEventListener(
+        "input",
+        function(){
 
-    if (aadhaarField) {
+            this.value =
+                this.value.replace(
+                    /\D/g,
+                    ""
+                );
 
-        aadhaarField.addEventListener(
-            "input",
-            function () {
+        }
+    );
 
-                this.value =
-                    this.value.replace(/\D/g, "");
 
-            }
-        );
+    pincode.addEventListener(
+        "input",
+        function(){
 
-    }
+            this.value =
+                this.value.replace(
+                    /\D/g,
+                    ""
+                );
+
+        }
+    );
 
 
     /* =====================================================
-       PINCODE VALIDATION
+       SAVE
     ===================================================== */
 
-    const pincodeField =
-        document.getElementById("pincode");
-
-    if (pincodeField) {
-
-        pincodeField.addEventListener(
-            "input",
-            function () {
-
-                this.value =
-                    this.value.replace(/\D/g, "");
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       SAVE / UPDATE
-    ===================================================== */
-
-    const certificateForm =
-        document.getElementById("certificateForm");
-
-
-    if (!certificateForm) {
-
-        console.error(
-            "certificateForm not found"
-        );
-
-        return;
-
-    }
-
-
-    certificateForm.addEventListener(
+    form.addEventListener(
         "submit",
-        function (e) {
+        function(e){
 
             e.preventDefault();
 
 
-            const certificateNumber =
-                document.getElementById("certificateNumber")
-                .value.trim();
-
-
-            const certificateDate =
-                document.getElementById("certificateDate")
-                .value;
-
-
-            const marathiName =
-                document.getElementById("marathiName")
-                .value.trim();
-
-
-            const englishName =
-                document.getElementById("englishName")
-                .value.trim();
-
-
-            const aadhaar =
-                document.getElementById("aadhaar")
-                .value.trim();
-
-
-            const village =
-                document.getElementById("village")
-                .value.trim();
-
-
-            const taluka =
-                document.getElementById("taluka")
-                .value.trim();
-
-
-            const district =
-                document.getElementById("district")
-                .value.trim();
-
-
-            const state =
-                document.getElementById("state")
-                .value.trim();
-
-
-            const pincode =
-                document.getElementById("pincode")
-                .value.trim();
-
-
-            const residentType =
-                document.getElementById("residentType")
-                .value;
-
-
-            const place =
-                document.getElementById("place")
-                .value.trim();
-
-
-            const verification =
-                document.getElementById("verification")
-                .value.trim();
-
-
-            /* =================================================
-               VALIDATION
-            ================================================= */
-
-            if (aadhaar.length !== 12) {
+            if (
+                aadhaar.value.length !== 12
+            ){
 
                 alert(
                     "कृपया 12 अंकी आधार क्रमांक टाका."
@@ -289,7 +799,9 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            if (pincode.length !== 6) {
+            if (
+                pincode.value.length !== 6
+            ){
 
                 alert(
                     "कृपया 6 अंकी पिनकोड टाका."
@@ -300,7 +812,9 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            if (!residentType) {
+            if (
+                residentType.value === ""
+            ){
 
                 alert(
                     "कृपया रहिवासी प्रकार निवडा."
@@ -311,69 +825,68 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            /* =================================================
-               CERTIFICATE OBJECT
-            ================================================= */
-
             const certificate = {
 
                 certificateNumber:
-                    certificateNumber,
+                    certificateNumber.value.trim(),
 
                 certificateDate:
-                    certificateDate,
+                    certificateDate.value,
 
                 marathiName:
-                    marathiName,
+                    marathiName.value.trim(),
 
                 englishName:
-                    englishName,
+                    englishName.value.trim(),
 
                 aadhaar:
-                    aadhaar,
+                    aadhaar.value.trim(),
 
                 village:
-                    village,
+                    village.value.trim(),
 
                 taluka:
-                    taluka,
+                    taluka.value.trim(),
 
                 district:
-                    district,
+                    district.value.trim(),
 
                 state:
-                    state,
+                    state.value.trim(),
 
                 pincode:
-                    pincode,
+                    pincode.value.trim(),
 
                 residentType:
-                    residentType,
+                    residentType.value,
 
                 place:
-                    place,
+                    place.value.trim(),
 
                 verification:
-                    verification
+                    verification.value.trim()
 
             };
 
 
             /* =================================================
-               SAVE CURRENT
+               CURRENT CERTIFICATE
             ================================================= */
 
             localStorage.setItem(
                 "currentCertificate",
-                JSON.stringify(certificate)
+                JSON.stringify(
+                    certificate
+                )
             );
 
 
             /* =================================================
-               GET ALL CERTIFICATES
+               ALL CERTIFICATES
             ================================================= */
 
             let certificates = [];
+
 
             try {
 
@@ -385,11 +898,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     );
 
 
-                if (!Array.isArray(certificates)) {
+                if (
+                    !Array.isArray(
+                        certificates
+                    )
+                ){
+
                     certificates = [];
+
                 }
 
-            } catch (error) {
+            } catch(error){
 
                 certificates = [];
 
@@ -397,25 +916,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             /* =================================================
-               EDIT MODE
+               UPDATE / ADD
             ================================================= */
 
             if (editMode) {
 
                 const index =
                     certificates.findIndex(
-                        function (item) {
+                        function(item){
 
                             return String(
                                 item.certificateNumber || ""
-                            ).trim() ===
-                            editingCertificateNumber;
+                            ) === editingNumber;
 
                         }
                     );
 
 
-                if (index !== -1) {
+                if (index !== -1){
 
                     certificates[index] =
                         certificate;
@@ -428,104 +946,70 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 }
 
-            }
+            } else {
 
-
-            /* =================================================
-               NEW MODE
-            ================================================= */
-
-            else {
-
-                const alreadyExists =
-                    certificates.some(
-                        function (item) {
-
-                            return String(
-                                item.certificateNumber || ""
-                            ).trim() ===
-                            certificateNumber;
-
-                        }
-                    );
-
-
-                if (!alreadyExists) {
-
-                    certificates.push(
-                        certificate
-                    );
-
-                }
+                certificates.push(
+                    certificate
+                );
 
             }
 
-
-            /* =================================================
-               SAVE ALL
-            ================================================= */
 
             localStorage.setItem(
                 "certificates",
-                JSON.stringify(certificates)
+                JSON.stringify(
+                    certificates
+                )
             );
 
 
             /* =================================================
-               SUCCESS MESSAGE
+               CLEAR EDIT MODE
             ================================================= */
 
-            const message =
-                document.getElementById("message");
-
-
-            const saveButton =
-                document.getElementById("saveButton");
-
-
-            if (message) {
-
-                message.className =
-                    "success";
-
-                message.style.display =
-                    "block";
-
-
-                if (editMode) {
-
-                    message.innerHTML =
-                        "✅ दाखला माहिती Successfully Update झाली!<br>" +
-                        "Certificate तयार होत आहे...";
-
-                } else {
-
-                    message.innerHTML =
-                        "✅ माहिती Successfully Save झाली!<br>" +
-                        "Certificate तयार होत आहे...";
-
-                }
-
-            }
-
-
-            if (saveButton) {
-
-                saveButton.disabled =
-                    true;
-
-                saveButton.innerText =
-                    "Saved ✓";
-
-            }
+            sessionStorage.removeItem(
+                "editCertificate"
+            );
 
 
             /* =================================================
-               OPEN CERTIFICATE
+               SUCCESS
+            ================================================= */
+
+            const message =
+                document.getElementById(
+                    "message"
+                );
+
+
+            message.style.display =
+                "block";
+
+
+            message.innerHTML =
+                "✅ माहिती Successfully Save झाली!<br>" +
+                "Certificate तयार होत आहे...";
+
+
+            const saveButton =
+                document.getElementById(
+                    "saveButton"
+                );
+
+
+            saveButton.disabled =
+                true;
+
+            saveButton.innerText =
+                "Saved ✓";
+
+
+            /* =================================================
+               CERTIFICATE
             ================================================= */
 
             setTimeout(
-                function () {
+                function(){
 
                     window.location.href =
                         "certificate.html";
@@ -540,3 +1024,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 </script>
+
+</body>
+</html>
