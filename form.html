@@ -597,17 +597,46 @@ document.addEventListener("DOMContentLoaded", function () {
        NEW CERTIFICATE NUMBER
     ===================================================== */
 
-    function generateCertificateNumber(){
+   function generateCertificateNumber(){
 
-        return String(
-            Math.floor(
-                100000000000 +
-                Math.random() * 900000000000
-            )
+    const START_NUMBER = 547281812524;
+
+    let certificates = [];
+
+    try{
+
+        certificates = JSON.parse(
+            localStorage.getItem("certificates") || "[]"
         );
+
+        if(!Array.isArray(certificates)){
+            certificates = [];
+        }
+
+    }catch(error){
+
+        certificates = [];
 
     }
 
+    let maxNumber = START_NUMBER - 1;
+
+    certificates.forEach(function(item){
+
+        const num = Number(item.certificateNumber);
+
+        if(
+            Number.isInteger(num) &&
+            num > maxNumber
+        ){
+            maxNumber = num;
+        }
+
+    });
+
+    return String(maxNumber + 1);
+
+}
 
     /* =====================================================
        TODAY DATE
